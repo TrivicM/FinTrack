@@ -1,0 +1,145 @@
+[
+  {
+    "Category": "Rent",
+    "Keywords": [
+      "miete",
+      "hausverwaltung"
+    ]
+  },
+  {
+    "Category": "Utilities",
+    "Keywords": [
+      "strom",
+      "telefonica",
+      "rechnung",
+      "tarifrechnung",
+      "telekom",
+      "tarif",
+      "rundfunk",
+      "beitragsservice"
+    ]
+  },
+  {
+    "Category": "Transportation",
+    "Keywords": [
+      "verkehrsbetriebe",
+      "wv",
+      "s-bahn",
+      "zug",
+      "fahrzeugsteuer"
+    ]
+  },
+  {
+    "Category": "Groceries",
+    "Keywords": [
+      "edeka",
+      "zahl",
+      "frischeparadies",
+      "lebensmittel",
+      "spar",
+      "gourmet",
+      "okay",
+      "markt"
+    ]
+  },
+  {
+    "Category": "Leisure",
+    "Keywords": [
+      "kaffeehaus",
+      "kaffee",
+      "kuchen",
+      "cafe",
+      "restaurant",
+      "gastro",
+      "gasthof",
+      "freundlich",
+      "kuch"
+    ]
+  },
+  {
+    "Category": "Health",
+    "Keywords": [
+      "apotheke",
+      "arzt",
+      "gesundheitskasse",
+      "medizin",
+      "medizintechnik",
+      "drogerie",
+      "cosmetics",
+      "kosmetik",
+      "sanitat"
+    ]
+  },
+  {
+    "Category": "Salary",
+    "Keywords": [
+      "gehalt",
+      "lohn",
+      "rente",
+      "prestige"
+    ]
+  },
+  {
+    "Category": "Home Improvement",
+    "Keywords": [
+      "bauhaus",
+      "hellweg",
+      "baumarkt"
+    ]
+  },
+  {
+    "Category": "Other",
+    "Keywords": [
+      "sepa",
+      "auszahlung",
+      "bargeldauszahlung",
+      "bargeldeinzahlung",
+      "überweisung",
+      "guthaben",
+      "konto",
+      "kreditkarte",
+      "verfalld",
+      "kartenzahlung",
+      "einzahlung",
+      "sammelkonto",
+      "ausz",
+      "fremd",
+      "rücklastschrift",
+      "aus",
+      "giro",
+      "bezahlt",
+      "einkauf",
+      "saldo",
+      "abschluss"
+    ]
+  },
+  {
+    "Category": "Fitness",
+    "Keywords": [
+      "fitness",
+      "basistarif",
+      "club",
+      "pauschale"
+    ]
+  },
+  {
+    "Category": "Merchandise",
+    "Keywords": [
+      "baby-walz",
+      "schuhe",
+      "deichmann",
+      "tedi",
+      "mcpaper",
+      "brot",
+      "buch",
+      "schreibwaren",
+      "gitarren",
+      "svn",
+      "ehringe",
+      "kleidung",
+      "spielzeug",
+      "schloss",
+      "baumateial"
+    ]
+  }
+]

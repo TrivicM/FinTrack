@@ -1,0 +1,3 @@
+{
+  "prompt": "Below is a list of bank transactions exported from a sqlite database. Please provide a list of categories with keywords in ENGLISH that represent all transactions. Each keyword must be unique and assigned to only one category. Ensure that at least the following categories are present: Salary, Utilities, Transportation, Rent, Leisure, Groceries and Caterory Other. If you find transactions that do not fit any of these categories, create additional appropriate categories. If you find a transaction that doesn't fit any given catagory, add it to category Other. Output the result as a JSON list of objects, each with a 'Category' and a list of 'Keywords'."
+}
