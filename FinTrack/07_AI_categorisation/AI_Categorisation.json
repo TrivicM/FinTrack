@@ -2,144 +2,178 @@
   {
     "Category": "Rent",
     "Keywords": [
-      "miete",
-      "hausverwaltung"
+      "m&b hausverwaltung",
+      "miete für"
     ]
   },
   {
-    "Category": "Utilities",
+    "Category": "Auto",
     "Keywords": [
-      "strom",
-      "telefonica",
-      "rechnung",
-      "tarifrechnung",
-      "telekom",
-      "tarif",
-      "rundfunk",
-      "beitragsservice"
-    ]
-  },
-  {
-    "Category": "Transportation",
-    "Keywords": [
-      "verkehrsbetriebe",
-      "wv",
-      "s-bahn",
-      "zug",
-      "fahrzeugsteuer"
+      "fahrzeugsteuer",
+      "finanzamt wien"
     ]
   },
   {
     "Category": "Groceries",
     "Keywords": [
-      "edeka",
-      "zahl",
-      "frischeparadies",
-      "lebensmittel",
-      "spar",
-      "gourmet",
-      "okay",
-      "markt"
+      "edeka zahl, wien",
+      "frischeparadies wien",
+      "spar gourmet",
+      "okay markt, wien"
+    ]
+  },
+  {
+    "Category": "Healthcare",
+    "Keywords": [
+      "apotheke",
+      "apotheke am oliva",
+      "apotheke am stephansplatz",
+      "bing bong apotheke",
+      "bing bong apotheke",
+      "bing bong apotheke",
+      "bing bong apotheke",
+      "gorki apotheke",
+      "gorki apotheke",
+      "haus-apotheke",
+      "hubertus apo. am dunau",
+      "dm drogeriemarkt sagt danke"
     ]
   },
   {
     "Category": "Leisure",
     "Keywords": [
-      "kaffeehaus",
-      "kaffee",
-      "kuchen",
-      "cafe",
-      "restaurant",
-      "gastro",
-      "gasthof",
-      "freundlich",
-      "kuch"
+      "ttgg kaffeehaus gmbh",
+      "ttgg kaffeehaus gmbh",
+      "ptc kaffeehaus",
+      "zeit fuer brot",
+      "zeit fuer brot",
+      "cafe lilly",
+      "zeitt fuer brot",
+      "Loggia Restaurant",
+      "BING BONG APOTHEKE"
     ]
   },
   {
-    "Category": "Health",
+    "Category": "Utilities",
     "Keywords": [
-      "apotheke",
-      "arzt",
-      "gesundheitskasse",
-      "medizin",
-      "medizintechnik",
-      "drogerie",
-      "cosmetics",
-      "kosmetik",
-      "sanitat"
+      "strom europe sales"
+    ]
+  },
+  {
+    "Category": "Credit Card",
+    "Keywords": [
+      "abrechnung kreditkarte",
+      "postbank sammelkonto kreditkarte"
     ]
   },
   {
     "Category": "Salary",
     "Keywords": [
-      "gehalt",
-      "lohn",
-      "rente",
-      "prestige"
+      "lohn/gehalt",
+      "prestige inc."
     ]
   },
   {
-    "Category": "Home Improvement",
+    "Category": "Insurance",
     "Keywords": [
-      "bauhaus",
-      "hellweg",
-      "baumarkt"
+      "pd allgemeine versicherung aktiengesellschaft"
+    ]
+  },
+  {
+    "Category": "Transportation",
+    "Keywords": [
+      "wiener verkehrsbetriebe",
+      "s-bahn-wien gmbh",
+      "db automaten",
+      "wiener verkehrsbetriebe",
+      "wiener verkehrsbetriebe"
+    ]
+  },
+  {
+    "Category": "Sport",
+    "Keywords": [
+      "fitness club"
     ]
   },
   {
     "Category": "Other",
     "Keywords": [
-      "sepa",
+      "sepa überweisung",
+      "sepa lastschrift",
       "auszahlung",
-      "bargeldauszahlung",
+      "bargeldauszahlung (geldautomat)",
       "bargeldeinzahlung",
-      "überweisung",
-      "guthaben",
-      "konto",
-      "kreditkarte",
-      "verfalld",
-      "kartenzahlung",
-      "einzahlung",
-      "sammelkonto",
-      "ausz",
-      "fremd",
-      "rücklastschrift",
-      "aus",
-      "giro",
-      "bezahlt",
-      "einkauf",
-      "saldo",
-      "abschluss"
+      "kontenüberträge",
+      "reiffeisen bank",
+      "reiffeisenbank",
+      "ADYEN N.V.",
+      "ADYEN N.V.",
+      "karls dankt",
+      "sg-vr payment",
+      "kucheria",
+      "reiffeisen bank",
+      "beitragsservice von rundfunk ard, zdf, und radio",
+      "landeshauptkasse wien, aut.",
+      "reiffeisen bank",
+      "nan",
+      "wiener mieterverein e.v.",
+      "m+m wien currys",
+      "rewe",
+      "v pay",
+      "abhebungen",
+      "abrechnung kreditkarte"
     ]
   },
   {
-    "Category": "Fitness",
+    "Category": "Finance",
     "Keywords": [
-      "fitness",
-      "basistarif",
-      "club",
-      "pauschale"
+      "deutsche apotheker und aerztebank"
     ]
   },
   {
-    "Category": "Merchandise",
+    "Category": "Leisure",
     "Keywords": [
-      "baby-walz",
-      "schuhe",
-      "deichmann",
-      "tedi",
-      "mcpaper",
-      "brot",
-      "buch",
-      "schreibwaren",
-      "gitarren",
-      "svn",
-      "ehringe",
-      "kleidung",
-      "spielzeug",
-      "schloss",
-      "baumateial"
+      "lovely sushi noodle shop and more"
+    ]
+  },
+  {
+    "Category": "Auto",
+    "Keywords": [
+      "aral ag"
+    ]
+  },
+  {
+    "Category": "Healthcare",
+    "Keywords": [
+      "alnatura dankt",
+      "kuchen laden autn",
+      "freundlys kitchen"
+    ]
+  },
+  {
+    "Category": "Sport",
+    "Keywords": [
+      "decathlon wien",
+      "deichmann schuhe"
+    ]
+  },
+  {
+    "Category": "Sport",
+    "Keywords": [
+      "zeitt fuer brot"
+    ]
+  },
+  {
+    "Category": "Groceries",
+    "Keywords": [
+      "tedi + co. kg",
+      "reiffeisen bank"
+    ]
+  },
+  {
+    "Category": "Auto",
+    "Keywords": [
+      "jimmy chang & co"
     ]
   }
 ]

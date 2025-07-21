@@ -4,8 +4,6 @@ import json  # Add this import
 import time  # Add this import for timing the script execution
 import os  # Import os to handle file paths
 
-
-
 class GenAICat(BaseModel):
     """
     GenAICat represents a generic AI-generated category with associated keywords.
@@ -27,18 +25,32 @@ def main():
     api_key = os.environ.get("GENAI_API_KEY")  # Get the API key from environment variables
     client = genai.Client(api_key=api_key)  # Initialize the GenAI client
 
-    # Read the prompt from a JSON file
-    with open("prompt.json", "r", encoding="utf-8") as f:
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    prompt_path = os.path.join(script_dir, "prompt.json")
+    with open(prompt_path, "r", encoding="utf-8") as f:
         prompt_data = json.load(f)
     prompt = prompt_data["prompt"]
+
+
+
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    examples_path = os.path.join(script_dir, "categorization_examples.json")
+    with open(examples_path, "r", encoding="utf-8") as f:
+        examples = json.load(f)
+
+    examples_text = "\n".join(
+        f'Transaction: {{"booking_text": "{ex["booking_text"]}", "sender_receiver": "{ex["sender_receiver"]}"}}\n'
+        f'Category: {ex["expected_category"]}, Keyword: {ex["expected_keyword"]}'
+        for ex in examples
+    )
 
     # Read the bank statement data from JSON
     with open("transactions.json", "r", encoding="utf-8") as f:
         transactions = json.load(f)
 
-    # Prepare the full prompt for the LLM
     full_prompt = (
         f"{prompt}\n\n"
+        f"Examples:\n{examples_text}\n\n"
         f"Here is the bank statement data in JSON format:\n"
         f"{json.dumps(transactions, indent=2, ensure_ascii=False)}"
     )
@@ -49,47 +61,27 @@ def main():
         config={
             "response_mime_type": "application/json",
             "response_schema": list[GenAICat],
-        },
+            "temperature": 1  # Adjust temperature for more deterministic output
+        }
     )
 
     # Write the response to a JSON file
     with open("AI_Categorisation.json", "w", encoding="utf-8") as f:
         f.write(response.text)
+    with open("log_prompt.json", "w", encoding="utf-8") as f:
+        f.write(full_prompt)
 
     # Use instantiated objects.
     my_GenAICats: list[GenAICat] = response.parsed
-    # Read the prompt from a JSON file
-    with open("prompt.json", "r", encoding="utf-8") as f:
-        prompt_data = json.load(f)
-    prompt = prompt_data["prompt"]
 
-    # Read the bank statement data from JSON
-    with open("transactions.json", "r", encoding="utf-8") as f:
-        transactions = json.load(f)
+    def count_tokens(text):
+        # Approximate: split by whitespace (not exact for LLMs, but gives a rough idea)
+        return len(text.split())
 
-    # Prepare the full prompt for the LLM
-    # You can adjust the formatting as needed for your use case
-    full_prompt = (
-        f"{prompt}\n\n"
-        f"Here is the bank statement data in JSON format:\n"
-        f"{json.dumps(transactions, indent=2, ensure_ascii=False)}"
-    )
-
-    response = client.models.generate_content(
-        model="gemini-2.0-flash",
-        contents=full_prompt,
-        config={
-            "response_mime_type": "application/json",
-            "response_schema": list[GenAICat],
-        },
-    )
-
-    # Write the response to a JSON file
-    with open("AI_Categorisation.json", "w", encoding="utf-8") as f:
-        f.write(response.text)
-
-    # Use instantiated objects.
-    my_GenAICats: list[GenAICat] = response.parsed
+    prompt_tokens = count_tokens(full_prompt)
+    response_tokens = count_tokens(response.text)
+    print(f"Approximate prompt tokens: {prompt_tokens}")
+    print(f"Approximate response tokens: {response_tokens}")
 
     end_time = time.time()
     duration = end_time - start_time
