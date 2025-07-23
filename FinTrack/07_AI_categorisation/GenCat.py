@@ -39,8 +39,8 @@ def main():
         examples = json.load(f)
 
     examples_text = "\n".join(
-        f'Transaction: {{"booking_text": "{ex["booking_text"]}", "sender_receiver": "{ex["sender_receiver"]}"}}\n'
-        f'Category: {ex["expected_category"]}, Keyword: {ex["expected_keyword"]}'
+        f'Transaction: {{"booking_text": "{ex.get("booking_text", "")}", "sender_receiver": "{ex.get("sender_receiver", "")}", "purpose": "{ex.get("purpose", "")}"}}\n'
+        f'Category: {ex.get("expected_category", "")}, Keyword: {ex.get("expected_keyword", "")}'
         for ex in examples
     )
 
@@ -59,11 +59,11 @@ def main():
         model="gemini-2.0-flash",
         contents=full_prompt,
         config={
-            "response_mime_type": "application/json",
+            "response_mime_type": "application/json",     
             "response_schema": list[GenAICat],
-            "temperature": 1  # Adjust temperature for more deterministic output
+            "temperature": 0.2  # Lower temperature for more consistent, deterministic categorization
         }
-    )
+    )       
 
     # Write the response to a JSON file
     with open("AI_Categorisation.json", "w", encoding="utf-8") as f:
