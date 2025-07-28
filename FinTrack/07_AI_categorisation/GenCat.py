@@ -31,8 +31,6 @@ def main():
         prompt_data = json.load(f)
     prompt = prompt_data["prompt"]
 
-
-
     script_dir = os.path.dirname(os.path.abspath(__file__))
     examples_path = os.path.join(script_dir, "categorization_examples.json")
     with open(examples_path, "r", encoding="utf-8") as f:
