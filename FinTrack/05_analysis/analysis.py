@@ -90,8 +90,9 @@ def main():
     def categorize(row, categories):
         text = f"{row['sender_receiver']} {row['booking_text']} {row['purpose']}".lower()
         for cat, keywords in categories.items():
-            for kw in keywords:
-                if kw.lower() in text:  # Make Matching More Flexible.
+            for kw_obj in keywords:
+                kw = kw_obj['keyword'] if isinstance(kw_obj, dict) and 'keyword' in kw_obj else str(kw_obj)
+                if kw.lower() in text:
                     return cat
         return 'Other'
 
@@ -195,7 +196,8 @@ def main():
             df_category = df[df['category'] == category].copy()
             def find_keyword(row):
                 text = f"{row['sender_receiver']} {row['booking_text']} {row['purpose']}".lower()
-                for kw in keywords:
+                for kw_obj in keywords:
+                    kw = kw_obj['keyword'] if isinstance(kw_obj, dict) and 'keyword' in kw_obj else str(kw_obj)
                     if kw.lower() in text:
                         return kw
                 return 'Other'
@@ -399,7 +401,8 @@ def main():
         keywords = categories.get(cat, [])
         def find_keyword(row):
             text = f"{row['sender_receiver']} {row['booking_text']} {row['purpose']}".lower()
-            for kw in keywords:
+            for kw_obj in keywords:
+                kw = kw_obj['keyword'] if isinstance(kw_obj, dict) and 'keyword' in kw_obj else str(kw_obj)
                 if kw.lower() in text:
                     return kw
             return 'Other'
