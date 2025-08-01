@@ -18,16 +18,6 @@ def main():
     BUILD_DIR = os.path.join(ANALYSIS_DIR, "_build")
     os.makedirs(BUILD_DIR, exist_ok=True)
 
-    # --- Load categories and keywords from AI_Categorisation.json ---
-    AI_CATS_PATH = r"C:\public_projects\portfolio\FinTrack\07_AI_categorisation\AI_Categorisation_cleaned.json"
-    if os.path.exists(AI_CATS_PATH):
-        with open(AI_CATS_PATH, "r", encoding="utf-8") as f:
-            ai_categories = json.load(f)
-        # Remove entries without Category or Keywords
-        ai_categories = [entry for entry in ai_categories if entry.get("Category") and entry.get("Keywords")]
-        categories = {entry["Category"]: entry["Keywords"] for entry in ai_categories}
-    else:
-        categories = {}
 
     # --- Logging configuration ---
     logging.basicConfig(
@@ -87,17 +77,23 @@ def main():
     else:
         categories = {}
 
-    def categorize(row, categories):
-        text = f"{row['sender_receiver']} {row['booking_text']} {row['purpose']}".lower()
+    # --- Fast categorization using vectorized string matching ---
+    def fast_categorize(df, categories):
+        text_col = (
+            df['sender_receiver'].fillna('') + ' ' +
+            df['booking_text'].fillna('') + ' ' +
+            df['purpose'].fillna('')
+        ).str.lower()
+        result = pd.Series('Other', index=df.index)
         for cat, keywords in categories.items():
             for kw_obj in keywords:
                 kw = kw_obj['keyword'] if isinstance(kw_obj, dict) and 'keyword' in kw_obj else str(kw_obj)
-                if kw.lower() in text:
-                    return cat
-        return 'Other'
+                mask = text_col.str.contains(re.escape(kw.lower()), regex=True)
+                result[mask] = cat
+        return result
 
-    df['category'] = df.apply(lambda row: categorize(row, categories), axis=1)
-    logging.info("Categorization completed using AI_Categorisation.json.")
+    df['category'] = fast_categorize(df, categories)
+    logging.info("Categorization completed using fast vectorized method.")
 
 # -------- Export uncategorized transactions for review --------
     other_df = df[df['category'] == 'Other']
