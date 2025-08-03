@@ -1,0 +1,72 @@
+[
+  {
+    "Category": "Taxes and Fees",
+    "Keywords": [
+      {
+        "keyword": "beitragsservice von rundfunk ard, zdf, und radio",
+        "reasoning": "This is a payment to the broadcasting services, which is a mandatory fee similar to a tax.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "rundfunk ard, zdf, dradio",
+        "reasoning": "Payment to broadcasting services, similar to a tax or mandatory fee.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "Leisure",
+    "Keywords": [
+      {
+        "keyword": "brauhaus am schloss gmbh",
+        "reasoning": "Brauhaus am Schloss is a restaurant, so it falls under the Leisure category.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "caffee sumup .gandzior + christ",
+        "reasoning": "Caffee indicates a cafe, which is a leisure expense.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "m + m wien currys",
+        "reasoning": "Currys indicates a food establishment, which falls under the Leisure category.",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "Category": "Other",
+    "Keywords": [
+      {
+        "keyword": "mcpaper ag",
+        "reasoning": "McPaper AG is a store, but it's not clear what they sell, so it's categorized as Other.",
+        "confidence": 0.7
+      },
+      {
+        "keyword": "adyen n.v.",
+        "reasoning": "Adyen N.V. is a payment processor, so it's categorized as Other.",
+        "confidence": 0.6
+      }
+    ]
+  },
+  {
+    "Category": "Medicine",
+    "Keywords": [
+      {
+        "keyword": "hubertus apo. am dunau",
+        "reasoning": "Apo. stands for Apotheke, which means pharmacy. This is clearly a medicine-related expense.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "Clothing",
+    "Keywords": [
+      {
+        "keyword": "auronia - svn gmbh",
+        "reasoning": "AURONIA - SVN Eheringe indicates the purchase of wedding rings, which falls under clothing/accessories.",
+        "confidence": 0.8
+      }
+    ]
+  }
+]

@@ -1,0 +1,92 @@
+[
+  {
+    "transaction": {
+      "account_number": "",
+      "amount": "-5602",
+      "balance": "0",
+      "bank_name": "anonym_exp",
+      "bic": null,
+      "booking_text": "Kartenzahlung",
+      "collector_reference": "",
+      "credit": "0.0",
+      "creditor_id": "CC2946146348533850",
+      "currency": "EUR",
+      "customer_reference": "19329964610173",
+      "date": "24.07.1998",
+      "debit": "-5602.0",
+      "iban": "FC34077571349201100000",
+      "info": "",
+      "mandate_reference": "T0094947",
+      "original_debit_amount": "0",
+      "purpose": "DB Automaten//WIEN/AUT 07-09-1998T08:39:35 Folgenr. 001 Verfalld. 0001",
+      "return_debit_expense": "0",
+      "sender_receiver": "Reiffeisen Bank",
+      "transaction_hash": "0ef270f66082dfad84b52de6c5070ed8126a4bdcfe7efb585cd31fc4904b1edd",
+      "value_date": "24.07.1998"
+    },
+    "categories": [
+      "transportation",
+      "bank loan"
+    ]
+  },
+  {
+    "transaction": {
+      "account_number": "",
+      "amount": "-6592",
+      "balance": "0",
+      "bank_name": "anonym_exp",
+      "bic": null,
+      "booking_text": "Kartenzahlung",
+      "collector_reference": "",
+      "credit": "0.0",
+      "creditor_id": "CC4378067600414940",
+      "currency": "EUR",
+      "customer_reference": "23704294546932",
+      "date": "25.07.1998",
+      "debit": "-6592.0",
+      "iban": "FC85160076727243400000",
+      "info": "",
+      "mandate_reference": "T0076181",
+      "original_debit_amount": "0",
+      "purpose": "DB Automaten//WIEN/AUT 07-09-1998T08:40:22 Folgenr. 001 Verfalld. 0001",
+      "return_debit_expense": "0",
+      "sender_receiver": "Reiffeisen Bank",
+      "transaction_hash": "a79a91ae72a2c2531e61a92a6d205287805a62511f290fb5cb05e7989d0441f8",
+      "value_date": "25.07.1998"
+    },
+    "categories": [
+      "transportation",
+      "bank loan"
+    ]
+  },
+  {
+    "transaction": {
+      "account_number": "",
+      "amount": "-3563",
+      "balance": "0",
+      "bank_name": "anonym_exp",
+      "bic": null,
+      "booking_text": "SEPA Lastschrift",
+      "collector_reference": "",
+      "credit": "0.0",
+      "creditor_id": "CC9566065806707120",
+      "currency": "EUR",
+      "customer_reference": "1883394174897",
+      "date": "29.04.1998",
+      "debit": "-3563.0",
+      "iban": "FC37132266457709800000",
+      "info": "",
+      "mandate_reference": "T0068213",
+      "original_debit_amount": "0",
+      "purpose": "12361236123612361236 ELV521521521 19.10 11.98",
+      "return_debit_expense": "0",
+      "sender_receiver": "1423 ERNSTINGS FAM.WIEN",
+      "transaction_hash": "61aa8c4f292e640bed737de3731daa9b0c7821b011f14d0f1c022c8afdf8c711",
+      "value_date": "29.04.1998"
+    },
+    "categories": [
+      "other",
+      "hausehold"
+    ]
+  }
+]

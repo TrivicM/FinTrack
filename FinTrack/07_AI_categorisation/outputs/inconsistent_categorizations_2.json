@@ -1,0 +1,32 @@
+[
+  {
+    "transaction": {
+      "account_number": "",
+      "amount": "-3563",
+      "balance": "0",
+      "bank_name": "anonym_exp",
+      "bic": null,
+      "booking_text": "SEPA Lastschrift",
+      "collector_reference": "",
+      "credit": "0.0",
+      "creditor_id": "CC9566065806707120",
+      "currency": "EUR",
+      "customer_reference": "1883394174897",
+      "date": "29.04.1998",
+      "debit": "-3563.0",
+      "iban": "FC37132266457709800000",
+      "info": "",
+      "mandate_reference": "T0068213",
+      "original_debit_amount": "0",
+      "purpose": "12361236123612361236 ELV521521521 19.10 11.98",
+      "return_debit_expense": "0",
+      "sender_receiver": "1423 ERNSTINGS FAM.WIEN",
+      "transaction_hash": "61aa8c4f292e640bed737de3731daa9b0c7821b011f14d0f1c022c8afdf8c711",
+      "value_date": "29.04.1998"
+    },
+    "categories": [
+      "other",
+      "hausehold"
+    ]
+  }
+]

@@ -1,0 +1,562 @@
+[
+  {
+    "Category": "Maintenance",
+    "Keywords": [
+      {
+        "keyword": "bauhaus",
+        "reasoning": "Bauhaus is a home improvement store, so this transaction is categorized as maintenance.",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "Category": "Salary",
+    "Keywords": [
+      {
+        "keyword": "prestige inc",
+        "reasoning": "The purpose indicates salary payment from Prestige Inc.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "Hausehold",
+    "Keywords": [
+      {
+        "keyword": "backwerk",
+        "reasoning": "BackWerk is a bakery, so this transaction is categorized as household expenses.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "edeka",
+        "reasoning": "Edeka is a supermarket, so transactions with this keyword are categorized as household expenses.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "zeit fuer brot",
+        "reasoning": "Zeit fuer Brot is a bakery, so this transaction is categorized as household expenses.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "frischeparadies",
+        "reasoning": "Fresheparadies is a food store, so transactions with this keyword are categorized as household expenses.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "okay markt",
+        "reasoning": "Okay Markt is a supermarket, so transactions with this keyword are categorized as household expenses.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "alnatura",
+        "reasoning": "Alnatura is a supermarket, so transactions with this keyword are categorized as household expenses.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "rewe",
+        "reasoning": "REWE is a supermarket, so transactions with this keyword are categorized as household expenses.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "le crobag",
+        "reasoning": "Le Crobag is a bakery, so transactions with this keyword are categorized as household expenses.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "spargourmet",
+        "reasoning": "SPAR Gourmet is a supermarket, so transactions with this keyword are categorized as household expenses.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "dm drogeriemarkt",
+        "reasoning": "DM is a drugstore, so transactions with this keyword are categorized as household expenses.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "rossmann",
+        "reasoning": "Rossmann is a drugstore, so transactions with this keyword are categorized as household expenses.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "vielen dank ihre brotmeisterei",
+        "reasoning": "Vielen Dank Ihre Brotmeisterei is a bakery, so transactions with this keyword are categorized as household expenses.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "baby walz",
+        "reasoning": "Baby Walz is a store for baby products, so transactions with this keyword are categorized as household expenses.",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "Category": "Telefon",
+    "Keywords": [
+      {
+        "keyword": "telefonica",
+        "reasoning": "Telefonica is a telecommunications company, so this transaction is categorized as telephone bill.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "Leisure",
+    "Keywords": [
+      {
+        "keyword": "ptc kaffeehaus",
+        "reasoning": "Kaffeehaus indicates a food or drink establishment, which fits the leisure category.",
+        "confidence": 0.85
+      },
+      {
+        "keyword": "sips coffee",
+        "reasoning": "Coffee indicates a food or drink establishment, which fits the leisure category.",
+        "confidence": 0.85
+      },
+      {
+        "keyword": "friendlys kitchen",
+        "reasoning": "Kitchen indicates a food or drink establishment, which fits the leisure category.",
+        "confidence": 0.85
+      },
+      {
+        "keyword": "modo mio restaurant",
+        "reasoning": "Restaurant indicates a food or drink establishment, which fits the leisure category.",
+        "confidence": 0.85
+      },
+      {
+        "keyword": "lovely sushi noodle shop and more",
+        "reasoning": "Noodle shop indicates a food or drink establishment, which fits the leisure category.",
+        "confidence": 0.85
+      },
+      {
+        "keyword": "aroma cafe bac",
+        "reasoning": "Cafe indicates a food or drink establishment, which fits the leisure category.",
+        "confidence": 0.85
+      },
+      {
+        "keyword": "taverna michelangelo",
+        "reasoning": "Taverna indicates a food or drink establishment, which fits the leisure category.",
+        "confidence": 0.85
+      },
+      {
+        "keyword": "kuchen laden",
+        "reasoning": "Kuchen Laden indicates a food or drink establishment, which fits the leisure category.",
+        "confidence": 0.85
+      },
+      {
+        "keyword": "black fox coffee",
+        "reasoning": "Coffee indicates a food or drink establishment, which fits the leisure category.",
+        "confidence": 0.85
+      },
+      {
+        "keyword": "restaurant di russillo",
+        "reasoning": "Restaurant indicates a food or drink establishment, which fits the leisure category.",
+        "confidence": 0.85
+      },
+      {
+        "keyword": "marche wien zoo",
+        "reasoning": "Marche indicates a food or drink establishment, which fits the leisure category.",
+        "confidence": 0.85
+      },
+      {
+        "keyword": "persische kuche",
+        "reasoning": "Kuche indicates a food or drink establishment, which fits the leisure category.",
+        "confidence": 0.85
+      },
+      {
+        "keyword": "kaffee w 112 gmb",
+        "reasoning": "Kaffee indicates a food or drink establishment, which fits the leisure category.",
+        "confidence": 0.85
+      }
+    ]
+  },
+  {
+    "Category": "Medicine",
+    "Keywords": [
+      {
+        "keyword": "apotheke",
+        "reasoning": "Apotheke is a pharmacy, so this transaction is categorized as medicine.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "apotheke am olivastraße",
+        "reasoning": "Apotheke is a pharmacy, so this transaction is categorized as medicine.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "bing bong apotheke",
+        "reasoning": "Apotheke is a pharmacy, so this transaction is categorized as medicine.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "apotheke am stephansplatz",
+        "reasoning": "Apotheke is a pharmacy, so this transaction is categorized as medicine.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "gorki apotheke",
+        "reasoning": "Apotheke is a pharmacy, so this transaction is categorized as medicine.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "seyderlitz apotheke",
+        "reasoning": "Apotheke is a pharmacy, so this transaction is categorized as medicine.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "goethe apotheke",
+        "reasoning": "Apotheke is a pharmacy, so this transaction is categorized as medicine.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "dt apotheker u ärztebank",
+        "reasoning": "Dt. Apotheker u. Ärztebank is a bank for pharmacists and doctors, so this transaction is categorized as medicine.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "Sport",
+    "Keywords": [
+      {
+        "keyword": "decathlon",
+        "reasoning": "Decathlon is a sport store, so this transaction is categorized as sport.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "fitness club",
+        "reasoning": "Fitness club indicates a sport-related expense.",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "Category": "Transportation",
+    "Keywords": [
+      {
+        "keyword": "wiener verkehrsbetriebe",
+        "reasoning": "Wiener Verkehrsbetriebe is the public transport company, so this transaction is categorized as transportation.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "s-bahn-wien gmbh",
+        "reasoning": "S-Bahn is a public transport company, so this transaction is categorized as transportation.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "aral ag",
+        "reasoning": "Aral is a gas station, so this transaction is categorized as transportation.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "ATM",
+    "Keywords": [
+      {
+        "keyword": "ausz.fr",
+        "reasoning": "Auszahlung indicates a cash withdrawal from an ATM.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "Hausehold",
+    "Keywords": [
+      {
+        "keyword": "ernstings fam wien",
+        "reasoning": "Ernsting's family is a clothing store, typically associated with household purchases.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "Creditcard",
+    "Keywords": [
+      {
+        "keyword": "abrechnung kreditkarte",
+        "reasoning": "The purpose indicates credit card payment.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "postbank sammelkonto kreditkarte",
+        "reasoning": "The sender receiver indicates credit card payment.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "Insurance",
+    "Keywords": [
+      {
+        "keyword": "pd allgemeine versicherung aktiengesellschaft",
+        "reasoning": "PD Allgemeine Versicherung Aktiengesellschaft is an insurance company, so this transaction is categorized as insurance.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "Electricity",
+    "Keywords": [
+      {
+        "keyword": "strom europe sales",
+        "reasoning": "Strom Europe Sales indicates payment for electricity.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "energie direct",
+        "reasoning": "Energie Direct indicates payment for electricity.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "Rent",
+    "Keywords": [
+      {
+        "keyword": "wiener mieterverein",
+        "reasoning": "Wiener Mieterverein is a tenant association, so this transaction is categorized as rent.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "Maintenance",
+    "Keywords": [
+      {
+        "keyword": "hauswartungen",
+        "reasoning": "Hauswartungen indicates a maintenance service.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "bauhaus",
+        "reasoning": "Bauhaus indicates a home improvement store.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "Leisure",
+    "Keywords": [
+      {
+        "keyword": "american guitar shop",
+        "reasoning": "American Guitar Shop indicates a music store.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "cafe lilly",
+        "reasoning": "Cafe indicates a food or drink establishment, which fits the leisure category.",
+        "confidence": 0.85
+      },
+      {
+        "keyword": "taverna michelangelo",
+        "reasoning": "Taverna indicates a food or drink establishment, which fits the leisure category.",
+        "confidence": 0.85
+      },
+      {
+        "keyword": "anatolische kuche",
+        "reasoning": "Kuche indicates a food or drink establishment, which fits the leisure category.",
+        "confidence": 0.85
+      },
+      {
+        "keyword": "persische kuche",
+        "reasoning": "Kuche indicates a food or drink establishment, which fits the leisure category.",
+        "confidence": 0.85
+      },
+      {
+        "keyword": "mcdonalds",
+        "reasoning": "Mcdonalds indicates a food or drink establishment, which fits the leisure category.",
+        "confidence": 0.85
+      }
+    ]
+  },
+  {
+    "Category": "Medicine",
+    "Keywords": [
+      {
+        "keyword": "goethe apotheke",
+        "reasoning": "Apotheke is a pharmacy, so this transaction is categorized as medicine.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "hubertus apo am dunau",
+        "reasoning": "Apotheke is a pharmacy, so this transaction is categorized as medicine.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "seydelitz apotheke",
+        "reasoning": "Apotheke is a pharmacy, so this transaction is categorized as medicine.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "Hausehold",
+    "Keywords": [
+      {
+        "keyword": "alnatura dankt",
+        "reasoning": "Alnatura is a supermarket, so transactions with this keyword are categorized as household expenses.",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "Category": "Transportation",
+    "Keywords": [
+      {
+        "keyword": "db automaten",
+        "reasoning": "DB Automaten indicates a train ticket purchase, so this transaction is categorized as transportation.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "Clothing",
+    "Keywords": [
+      {
+        "keyword": "deichmann schuhe",
+        "reasoning": "Deichmann is a shoe store, so this transaction is categorized as clothing.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "p+c sagt danke",
+        "reasoning": "P+C is a clothing store, so this transaction is categorized as clothing.",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "Category": "Hausehold",
+    "Keywords": [
+      {
+        "keyword": "td schreibwaren gmbh",
+        "reasoning": "TD Schreibwaren is a store for stationery, so transactions with this keyword are categorized as household expenses.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "paper-la-papp",
+        "reasoning": "Paper-la-papp is a store for stationery, so transactions with this keyword are categorized as household expenses.",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "Category": "Leisure",
+    "Keywords": [
+      {
+        "keyword": "karls dankt",
+        "reasoning": "Karls dankt indicates a food or drink establishment, which fits the leisure category.",
+        "confidence": 0.85
+      },
+      {
+        "keyword": "kaffee",
+        "reasoning": "Kaffee indicates a food or drink establishment, which fits the leisure category.",
+        "confidence": 0.85
+      }
+    ]
+  },
+  {
+    "Category": "Maintenance",
+    "Keywords": [
+      {
+        "keyword": "smx011 hauswartungen",
+        "reasoning": "Hauswartungen indicates a maintenance service.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "Taxes and Fees",
+    "Keywords": [
+      {
+        "keyword": "finanzamt wien",
+        "reasoning": "Finanzamt Wien is a tax authority, so this transaction is categorized as taxes and fees.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "beitragsservice von rundfunk ard zdf und radio",
+        "reasoning": "Beitragsservice von Rundfunk ARD, ZDF, und Radio is a public service, so this transaction is categorized as taxes and fees.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "rundfunk ard zdf dradio",
+        "reasoning": "Rundfunk ARD, ZDF, Dradio is a public service, so this transaction is categorized as taxes and fees.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "landeshauptkasse wien",
+        "reasoning": "Landeshauptkasse Wien is a government office, so this transaction is categorized as taxes and fees.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "Leisure",
+    "Keywords": [
+      {
+        "keyword": "loggia restaurant",
+        "reasoning": "Restaurant indicates a food or drink establishment, which fits the leisure category.",
+        "confidence": 0.85
+      }
+    ]
+  },
+  {
+    "Category": "Medicine",
+    "Keywords": [
+      {
+        "keyword": "hof apotheke",
+        "reasoning": "Apotheke is a pharmacy, so this transaction is categorized as medicine.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "Hausehold",
+    "Keywords": [
+      {
+        "keyword": "dm",
+        "reasoning": "DM is a drugstore, so transactions with this keyword are categorized as household expenses.",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "Category": "Leisure",
+    "Keywords": [
+      {
+        "keyword": "kaffee",
+        "reasoning": "Kaffee indicates a food or drink establishment, which fits the leisure category.",
+        "confidence": 0.85
+      }
+    ]
+  },
+  {
+    "Category": "Bank loan",
+    "Keywords": [
+      {
+        "keyword": "reiffeisen bank",
+        "reasoning": "Reiffeisen Bank indicates a bank loan payment.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "Other",
+    "Keywords": [
+      {
+        "keyword": "jimmy chang & co",
+        "reasoning": "The transaction does not fit any specific category.",
+        "confidence": 0.5
+      },
+      {
+        "keyword": "auronia svn gmbh",
+        "reasoning": "The transaction does not fit any specific category.",
+        "confidence": 0.5
+      },
+      {
+        "keyword": "adyen nv",
+        "reasoning": "The transaction does not fit any specific category.",
+        "confidence": 0.5
+      }
+    ]
+  }
+]

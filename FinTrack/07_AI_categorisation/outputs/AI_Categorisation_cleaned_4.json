@@ -1,0 +1,12 @@
+[
+  {
+    "Category": "Leisure",
+    "Keywords": [
+      {
+        "keyword": "brauhaus am schloss",
+        "reasoning": "Brauhaus am Schloss is a restaurant, so it's categorized as leisure.",
+        "confidence": 0.95
+      }
+    ]
+  }
+]

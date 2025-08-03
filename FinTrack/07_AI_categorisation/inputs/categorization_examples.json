@@ -1,0 +1,27 @@
+[
+  {
+    "Category": "Household",
+    "Keywords": [
+      {
+        "keyword": "rossmann",
+        "reasoning": "Rossmann is a well-known drugstore chain, typically associated with household purchases.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "rewe",
+        "reasoning": "REWE is a supermarket, so transactions with this keyword are categorized as household expenses.",
+        "confidence": 0.90
+      }
+    ]
+  },
+  {
+    "Category": "Leisure",
+    "Keywords": [
+      {
+        "keyword": "cafe",
+        "reasoning": "Cafe indicates a food or drink establishment, which fits the leisure category.",
+        "confidence": 0.85
+      }
+    ]
+  }
+]

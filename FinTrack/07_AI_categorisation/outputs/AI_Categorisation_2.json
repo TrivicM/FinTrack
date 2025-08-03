@@ -1,0 +1,227 @@
+[
+  {
+    "Category": "ATM",
+    "Keywords": [
+      {
+        "keyword": "auszahlung",
+        "reasoning": "The booking text contains 'Auszahlung', indicating a cash withdrawal.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "ga nr",
+        "reasoning": "The purpose field contains 'GA NR', which is often associated with ATM transactions.",
+        "confidence": 0.85
+      },
+      {
+        "keyword": "bargeldeinzahlung",
+        "reasoning": "The booking text contains 'Bargeldeinzahlung', indicating a cash deposit.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "Leisure",
+    "Keywords": [
+      {
+        "keyword": "modo mio",
+        "reasoning": "The purpose field contains 'Modo Mio/Restaurant', indicating a restaurant payment.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "luca cafe am neuen see",
+        "reasoning": "The purpose field contains 'luca Cafe', indicating a cafe payment.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "brauhaus am schloss",
+        "reasoning": "The sender_receiver field contains 'Brauhaus am Schloss GmbH', indicating a restaurant payment.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "burgerking",
+        "reasoning": "The purpose field contains 'BurgerKing', indicating a fast food restaurant payment.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "master burger",
+        "reasoning": "The sender_receiver field contains 'MASTER BURGER', indicating a burger restaurant payment.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "friendlys kitche",
+        "reasoning": "The purpose field contains 'FRIENDLYS KITCHE', indicating a restaurant payment.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "caf am neuen see gastronomiebe",
+        "reasoning": "The purpose field contains 'Caf am Neuen See Gastronomiebe', indicating a cafe payment.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "restaurant prominent dankt",
+        "reasoning": "The purpose field contains 'Restaurant ProMinent', indicating a restaurant payment.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "noodlehouse xxx",
+        "reasoning": "The purpose field contains 'Noodlehouse', indicating a noodle restaurant payment.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "m m wien currys",
+        "reasoning": "The sender_receiver field contains 'M + M WIEN CURRYS', indicating a curry restaurant payment.",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "Category": "Hausehold",
+    "Keywords": [
+      {
+        "keyword": "ernstings fam.wien",
+        "reasoning": "The sender_receiver field contains 'ERNSTINGS FAM.WIEN', which is categorized as household.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "spar gourmet",
+        "reasoning": "The sender_receiver field contains 'SPAR Gourmet', which is categorized as household.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "tedi",
+        "reasoning": "The sender_receiver field contains 'TEDi + Co. KG', which is categorized as household.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "tchibo caffee",
+        "reasoning": "The sender_receiver field contains 'TCHIBO Caffee', which is categorized as household.",
+        "confidence": 0.95
+      },
+       {
+        "keyword": "der kuchenladen",
+        "reasoning": "The purpose field contains 'DER KUCHENLADEN', which is categorized as household.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "Maintenance",
+    "Keywords": [
+      {
+        "keyword": "hellweg sagt danke",
+        "reasoning": "The sender_receiver field contains 'HELLWEG SAGT DANKE', indicating a payment to a home improvement store.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "Other",
+    "Keywords": [
+      {
+        "keyword": "12361236123612361236 elv521521521",
+        "reasoning": "The purpose field contains a long string of numbers and ELV, which is difficult to categorize.",
+        "confidence": 0.5
+      },
+      {
+        "keyword": "geburtstagsgeschenk",
+        "reasoning": "The purpose field contains 'Geburtstagsgeschenk', indicating a gift.",
+        "confidence": 0.6
+      },
+      {
+        "keyword": "kontoabrechnung",
+        "reasoning": "The booking_text field contains 'Kontoabrechnung', indicating an account statement.",
+        "confidence": 0.7
+      },
+      {
+        "keyword": "saldo der abschlussposten",
+        "reasoning": "The purpose field contains 'Saldo der Abschlussposten', indicating an account statement.",
+        "confidence": 0.7
+      }
+    ]
+  },
+  {
+    "Category": "Insurance",
+    "Keywords": [
+      {
+        "keyword": "ppkp gesundheitskasse",
+        "reasoning": "The sender_receiver field contains 'PPKP Gesundheitskasse', indicating a health insurance payment.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "Taxes and Fees",
+    "Keywords": [
+      {
+        "keyword": "beitragsservice von rundfunk ard zdf und radio",
+        "reasoning": "The sender_receiver field contains 'Beitragsservice von Rundfunk ARD, ZDF, und Radio', indicating a payment for broadcasting fees.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "rundfunk ard zdf dradio",
+        "reasoning": "The sender_receiver field contains 'Rundfunk ARD, ZDF, Dradio', indicating a payment for broadcasting fees.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "Medicine",
+    "Keywords": [
+      {
+        "keyword": "hubertus apo am dunau",
+        "reasoning": "The purpose field contains 'Hubertus Apo. am Dunau', indicating a pharmacy payment.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "Clothing",
+    "Keywords": [
+      {
+        "keyword": "auronia svn eheringe",
+        "reasoning": "The sender_receiver field contains 'AURONIA - SVN GmbH', indicating a jewelry store payment.",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "Category": "Transportation",
+    "Keywords": [
+      {
+        "keyword": "s-bahn wien",
+        "reasoning": "The purpose field contains 'S-Bahn WIEN', indicating a train payment.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "Category": "Household",
+    "Keywords": [
+      {
+        "keyword": "media markt sagt danke",
+        "reasoning": "The sender_receiver field contains 'MEDIA MARKT SAGT DANKE.', indicating an electronics store payment.",
+        "confidence": 0.9
+      },
+      {
+        "keyword": "saturn sagt danke",
+        "reasoning": "The sender_receiver field contains 'SATURN SAGT DANKE.', indicating an electronics store payment.",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "Category": "Medicine",
+    "Keywords": [
+      {
+        "keyword": "guido meistermann medizintechnik",
+        "reasoning": "The sender_receiver field contains 'Guido Meistermann Medizintechnik', indicating a medical equipment payment.",
+        "confidence": 0.95
+      },
+      {
+        "keyword": "zoologischer garten wien",
+        "reasoning": "The purpose field contains 'Zoologischer Garten WIEN', indicating a zoo payment.",
+        "confidence": 0.95
+      }
+    ]
+  }
+]
