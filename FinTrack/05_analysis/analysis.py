@@ -12,12 +12,20 @@ import os
 import json
 import sys
 
+ANALYSIS_DIR = os.path.dirname(os.path.abspath(__file__))
+BUILD_DIR = os.path.join(ANALYSIS_DIR, "_build")
+os.makedirs(BUILD_DIR, exist_ok=True)
+
+AI_CATS_PATH = os.path.join(ANALYSIS_DIR, "..", "07_AI_categorisation", "outputs", "AI_Categorisation_cleaned.json")
+if os.path.exists(AI_CATS_PATH):
+    with open(AI_CATS_PATH, "r", encoding="utf-8") as f:
+        ai_categories = json.load(f)
+    ai_categories = [entry for entry in ai_categories if entry.get("Category") and entry.get("Keywords")]
+    categories = {entry["Category"]: entry["Keywords"] for entry in ai_categories}
+else:
+    categories = {}
+
 def main():
-
-    ANALYSIS_DIR = os.path.dirname(os.path.abspath(__file__))
-    BUILD_DIR = os.path.join(ANALYSIS_DIR, "_build")
-    os.makedirs(BUILD_DIR, exist_ok=True)
-
 
     # --- Logging configuration ---
     logging.basicConfig(
@@ -66,17 +74,6 @@ def main():
     df['month'] = df['date'].dt.month
     df['day'] = df['date'].dt.day
     
-    # -------- Load categories and keywords from AI_Categorisation.json --------
-    AI_CATS_PATH = r"C:\public_projects\portfolio\FinTrack\07_AI_categorisation\AI_Categorisation_cleaned.json"
-    if os.path.exists(AI_CATS_PATH):
-        with open(AI_CATS_PATH, "r", encoding="utf-8") as f:
-            ai_categories = json.load(f)
-    # Remove entries without Category or Keywords
-        ai_categories = [entry for entry in ai_categories if entry.get("Category") and entry.get("Keywords")]
-        categories = {entry["Category"]: entry["Keywords"] for entry in ai_categories}
-    else:
-        categories = {}
-
     # --- Fast categorization using vectorized string matching ---
     def fast_categorize(df, categories):
         text_col = (
@@ -96,9 +93,13 @@ def main():
     logging.info("Categorization completed using fast vectorized method.")
 
 # -------- Export uncategorized transactions for review --------
+    # Ensure the outputs directory exists
+    uncategorized_dir = os.path.join(os.path.dirname(__file__), "..", "07_AI_categorisation", "outputs")
+    os.makedirs(uncategorized_dir, exist_ok=True)
+    uncategorized_path = os.path.join(uncategorized_dir, "uncategorized_transactions.json")
     other_df = df[df['category'] == 'Other']
     if not other_df.empty:
-        uncategorized_path = r"C:\public_projects\portfolio\FinTrack\07_AI_categorisation\uncategorized_transactions.json"
+        uncategorized_path = os.path.join(ANALYSIS_DIR, "..", "07_AI_categorisation", "outputs", "uncategorized_transactions.json")
         other_df.to_json(uncategorized_path, orient="records", force_ascii=False)
         logging.info(f"Exported {len(other_df)} uncategorized transactions for review.")
     else:
@@ -191,10 +192,11 @@ def main():
             keywords = categories.get(category, [])
             df_category = df[df['category'] == category].copy()
             def find_keyword(row):
-                text = f"{row['sender_receiver']} {row['booking_text']} {row['purpose']}".lower()
+                text = normalize_text(f"{row['sender_receiver']} {row['booking_text']} {row['purpose']}")
                 for kw_obj in keywords:
                     kw = kw_obj['keyword'] if isinstance(kw_obj, dict) and 'keyword' in kw_obj else str(kw_obj)
-                    if kw.lower() in text:
+                    kw_norm = normalize_text(kw)
+                    if kw_norm in text:
                         return kw
                 return 'Other'
             df_category['Keyword'] = df_category.apply(find_keyword, axis=1)
@@ -217,6 +219,7 @@ def main():
             plt.legend(title="Keyword", bbox_to_anchor=(1.05, 1), loc='upper left')
             plt.grid()
             plt.tight_layout()
+            # For category plots:
             filename = os.path.join(BUILD_DIR, f"cumulative_spending_plot_{category}.png")
             fig.savefig(filename, dpi=150, bbox_inches="tight", pad_inches=0.1)
             plt.close(fig)
@@ -399,7 +402,7 @@ def main():
             text = f"{row['sender_receiver']} {row['booking_text']} {row['purpose']}".lower()
             for kw_obj in keywords:
                 kw = kw_obj['keyword'] if isinstance(kw_obj, dict) and 'keyword' in kw_obj else str(kw_obj)
-                if kw.lower() in text:
+                if kw.lower() in text.lower():
                     return kw
             return 'Other'
         cat_df['Keyword'] = cat_df.apply(find_keyword, axis=1)
@@ -434,9 +437,14 @@ def main():
 
     output_filename = os.path.join(BUILD_DIR, "FinTrack_Report.pdf")
     pdf.output(output_filename)
+
     logging.info(f"PDF report generated successfully: {output_filename}")
     print(f"PDF report generated successfully: {output_filename}")
     logging.info("Analysis completed successfully.")
+
+def normalize_text(text):
+    # Lowercase and remove all non-alphanumeric characters except spaces
+    return re.sub(r'[^a-z0-9 ]', '', text.lower())
 
 if __name__ == "__main__":
     main()
