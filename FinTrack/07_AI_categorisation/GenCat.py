@@ -1,8 +1,14 @@
+import os
+import sys
+import json
 from google import genai
 from pydantic import BaseModel
-import json  # Add this import
-import time  # Add this import for timing the script execution
-import os  # Import os to handle file paths
+import time
+
+class KeywordEntry(BaseModel):
+    keyword: str
+    reasoning: str
+    confidence: float
 
 class GenAICat(BaseModel):
     """
@@ -13,7 +19,16 @@ class GenAICat(BaseModel):
         Keywords (list[str]): A list of keywords relevant to the category.
     """
     Category: str
-    Keywords: list[str]
+    Keywords: list[KeywordEntry]
+
+MAX_ATTEMPTS = 3
+
+def is_valid_json(text):
+    try:
+        json.loads(text)
+        return True
+    except Exception:
+        return False
 
 def main():
     """
@@ -26,47 +41,61 @@ def main():
     client = genai.Client(api_key=api_key)  # Initialize the GenAI client
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    prompt_path = os.path.join(script_dir, "prompt.json")
+    inputs_dir = os.path.join(script_dir, "..", "inputs")
+    prompt_path = os.path.join(inputs_dir, "prompt.json")
+    examples_path = os.path.join(inputs_dir, "categorization_examples.json")
+
     with open(prompt_path, "r", encoding="utf-8") as f:
         prompt_data = json.load(f)
     prompt = prompt_data["prompt"]
 
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    examples_path = os.path.join(script_dir, "categorization_examples.json")
     with open(examples_path, "r", encoding="utf-8") as f:
         examples = json.load(f)
 
-    examples_text = "\n".join(
-        f'Transaction: {{"booking_text": "{ex.get("booking_text", "")}", "sender_receiver": "{ex.get("sender_receiver", "")}", "purpose": "{ex.get("purpose", "")}"}}\n'
-        f'Category: {ex.get("expected_category", "")}, Keyword: {ex.get("expected_keyword", "")}'
-        for ex in examples
-    )
+    examples_text = ""
+    for ex in examples:
+        category = ex.get("Category", "")
+        keywords = ex.get("Keywords", [])
+        for kw in keywords:
+            examples_text += f'Category: {category}, Keyword: {kw}\n'
 
     # Read the bank statement data from JSON
-    with open("transactions.json", "r", encoding="utf-8") as f:
+    input_file = sys.argv[1] if len(sys.argv) > 1 else os.path.join(inputs_dir, "transactions.json")
+    output_file = sys.argv[2] if len(sys.argv) > 2 else os.path.join(script_dir, "..", "outputs", "AI_Categorisation.json")
+    with open(input_file, "r", encoding="utf-8") as f:
         transactions = json.load(f)
 
     full_prompt = (
         f"{prompt}\n\n"
-        f"Examples:\n{examples_text}\n\n"
+        f"Sample Output Format:\n{examples_text}\n\n"
         f"Here is the bank statement data in JSON format:\n"
         f"{json.dumps(transactions, indent=2, ensure_ascii=False)}"
     )
 
-    response = client.models.generate_content(
-        model="gemini-2.0-flash",
-        contents=full_prompt,
-        config={
-            "response_mime_type": "application/json",     
-            "response_schema": list[GenAICat],
-            "temperature": 0.2  # Lower temperature for more consistent, deterministic categorization
-        }
-    )       
+    for attempt in range(1, MAX_ATTEMPTS + 1):
+        response = client.models.generate_content(
+            model="gemini-2.0-flash",
+            contents=full_prompt,
+            config={
+                "response_mime_type": "application/json",
+                "response_schema": list[GenAICat],
+                "temperature": 0.2  # Lower temperature for more consistent, deterministic categorization
+            }
+        )
+        if is_valid_json(response.text):
+            break
+        print(f"Attempt {attempt}: Invalid JSON received, retrying...")
+        time.sleep(2)
+    else:
+        print("Failed to get valid JSON after several attempts.")
+        with open(output_file, "w", encoding="utf-8") as f:
+            f.write(response.text)
+        raise RuntimeError("GenAI did not return valid JSON.")
 
-    # Write the response to a JSON file
-    with open("AI_Categorisation.json", "w", encoding="utf-8") as f:
+    # Write the valid JSON to file
+    with open(output_file, "w", encoding="utf-8") as f:
         f.write(response.text)
-    with open("log_prompt.json", "w", encoding="utf-8") as f:
+    with open(os.path.join(inputs_dir, "log_prompt.json"), "w", encoding="utf-8") as f:
         f.write(full_prompt)
 
     # Use instantiated objects.
