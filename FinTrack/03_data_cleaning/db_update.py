@@ -97,16 +97,17 @@ def create_transactions_table(db_path, table_name="transactions"):
     conn.commit()
     conn.close()
 
-def find_header_row(file_path, sep=';', encoding='ISO-8859-1'):
+def find_header_row(file_path, sep=';', encoding='utf-8'):
     """
     Find the header row in a CSV file by matching known column names.
     Returns the row index of the header.
     """
     with open(file_path, 'r', encoding=encoding) as f:
         for i, line in enumerate(f):
-            headers = line.strip().split(sep)
-            match_count = sum(1 for h in headers if h.strip() in COLUMN_MAPPING)
-            if match_count >= 3:
+            headers = [h.strip() for h in line.strip().split(sep)]
+            match_count = sum(1 for h in headers if h in COLUMN_MAPPING)
+            logging.info(f"Line {i} headers: {headers} (matches: {match_count})")
+            if match_count >= 5:  # 5 or more matches is a strong signal
                 logging.info(f"Header row found at line {i} in {file_path}")
                 return i
     logging.error(f"Header row could not be found in the file: {file_path}")
@@ -131,6 +132,7 @@ def load_csv_with_mapping(file_path, bank_name, sep=";"):
         try:
             header_row = find_header_row(file_path, sep=sep, encoding=encoding)
             df = pd.read_csv(file_path, sep=sep, header=header_row, encoding=encoding)
+            on_bad_lines='skip' 
             break
         except UnicodeDecodeError:
             logging.warning(f"Failed to read {file_path} with encoding {encoding}, trying next encoding.")
