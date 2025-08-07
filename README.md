@@ -30,6 +30,10 @@ The `analysis_plotting.py` script performs data analysis and generates visual re
 
 - [Project Documentation (HTML)](FinTrack/06_documentation/build/html/index.html) 
 
+## Example of the FinTrack report
+
+- [FinTrack report (pdf)](FinTrack/05_analysis/_build/FinTrack_Report.pdf/FinTrack_Report.pdf)
+
 ---
 
    
