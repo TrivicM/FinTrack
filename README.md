@@ -6,7 +6,8 @@ AI assisted financial analysis from CSV to Report using Python and SQLite and Ge
 This project is designed to help you track your financial data, analyze it, and generate reports using Python, SQLite, and AI technologies.
 It provides a comprehensive solution for managing financial data, from cleaning and categorizing CSV files to generating insightful reports.
 
-![FinTrack Workflow](06_documentation/source/_static/FinTrack.png)
+
+![FinTrack Workflow](FinTrack/06_documentation/source/_static/FinTrack.png)
 
 
 ## Overview
@@ -27,7 +28,7 @@ The `analysis_plotting.py` script performs data analysis and generates visual re
 
 ## Project documentation
 
-- [Project Documentation (HTML)](06_documentation/build/html/index.html) 
+- [Project Documentation (HTML)](FinTrack/06_documentation/build/html/index.html) 
 
 ---
 
