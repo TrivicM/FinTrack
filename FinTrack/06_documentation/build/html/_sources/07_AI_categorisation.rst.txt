@@ -1,0 +1,96 @@
+AI supported Data categorization
+================================
+
+This module performs an iterative, multi-step AI-based transaction categorization workflow for financial data. It automates the process of categorizing transactions using a series of external Python scripts and manages the merging of results across multiple iterations.
+
+Overview
+--------
+
+The workflow consists of the following main steps:
+
+1. **Setup and Configuration**
+
+   - Defines paths for scripts, inputs, and outputs.
+   - Sets constants such as the maximum number of iterations.
+
+2. **Iterative Categorization Loop**
+
+   - Iterates up to ``MAX_ITERATIONS``:
+   - Runs the AI categorization script (``GenCat.py``) on the current set of transactions (starting with all, then only uncategorized).
+   - Cleans the AI output using ``clean_ai_categorisation.py``.
+   - Evaluates the cleaned output with ``gen_cat_eval.py`` to identify which transactions remain uncategorized or are inconsistently categorized.
+   - Checks for completion or progress:
+   - If all transactions are categorized, or if no further progress is made, the loop stops.
+   - Otherwise, the next iteration uses only the remaining uncategorized transactions as input.
+
+3. **Result Merging**
+
+   - After the loop, the script merges all intermediate JSON results (from each iteration) into consolidated files for:
+   - All categorized transactions
+   - All uncategorized transactions
+   - All inconsistently categorized transactions
+   - Merged category/keyword mappings
+
+4. **Helper Functions**
+
+   - Includes utilities for running scripts, counting uncategorized transactions, merging JSON files, and saving merged results.
+
+
+.. figure:: _static/AI_Loop.png
+   :alt: Description of image
+   :width: 600px
+
+   Iterative AI-based categorization workflow
+
+
+Submodules
+----------
+
+scripts/GenCat.py module
+------------------------
+
+.. automodule:: 07_AI_categorisation.scripts.GenCat
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+scripts/gen_cat_eval.py module
+------------------------------
+
+.. automodule:: 07_AI_categorisation.scripts.gen_cat_eval
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+scripts/clean_ai_categorisation.py module
+-----------------------------------------
+
+.. automodule:: 07_AI_categorisation.scripts.clean_ai_categorisation
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+scripts/refine_other_loop.py module
+-----------------------------------
+
+.. automodule:: 07_AI_categorisation.scripts.refine_other_loop
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+scripts/prompt_for_other_loop.py module
+---------------------------------------
+
+.. automodule:: 07_AI_categorisation.scripts.prompt_for_other_loop
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+main_categorization.py module
+-----------------------------
+
+.. automodule:: 07_AI_categorisation.main_categorization
+   :members:
+   :show-inheritance:
+   :undoc-members:
+

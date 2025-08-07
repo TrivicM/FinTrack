@@ -1,0 +1,21 @@
+07\_AI categorisation package
+=============================
+
+Submodules
+----------
+
+07\_AI categorisation.GenCat module
+-----------------------------------
+
+.. automodule:: 07_AI categorisation.GenCat
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: 07_AI categorisation
+   :members:
+   :show-inheritance:
+   :undoc-members:

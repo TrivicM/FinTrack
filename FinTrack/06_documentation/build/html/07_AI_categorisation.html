@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>AI supported Data categorization &#8212; FinTrack v1.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=76e2d817"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="FinTrack" href="modules.html" />
+    <link rel="prev" title="Data analysis" href="05_analysis.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="ai-supported-data-categorization">
+<h1>AI supported Data categorization<a class="headerlink" href="#ai-supported-data-categorization" title="Link to this heading">¶</a></h1>
+<p>This module performs an iterative, multi-step AI-based transaction categorization workflow for financial data. It automates the process of categorizing transactions using a series of external Python scripts and manages the merging of results across multiple iterations.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h2>
+<p>The workflow consists of the following main steps:</p>
+<ol class="arabic simple">
+<li><p><strong>Setup and Configuration</strong></p>
+<ul class="simple">
+<li><p>Defines paths for scripts, inputs, and outputs.</p></li>
+<li><p>Sets constants such as the maximum number of iterations.</p></li>
+</ul>
+</li>
+<li><p><strong>Iterative Categorization Loop</strong></p>
+<ul class="simple">
+<li><p>Iterates up to <code class="docutils literal notranslate"><span class="pre">MAX_ITERATIONS</span></code>:</p></li>
+<li><p>Runs the AI categorization script (<code class="docutils literal notranslate"><span class="pre">GenCat.py</span></code>) on the current set of transactions (starting with all, then only uncategorized).</p></li>
+<li><p>Cleans the AI output using <code class="docutils literal notranslate"><span class="pre">clean_ai_categorisation.py</span></code>.</p></li>
+<li><p>Evaluates the cleaned output with <code class="docutils literal notranslate"><span class="pre">gen_cat_eval.py</span></code> to identify which transactions remain uncategorized or are inconsistently categorized.</p></li>
+<li><p>Checks for completion or progress:</p></li>
+<li><p>If all transactions are categorized, or if no further progress is made, the loop stops.</p></li>
+<li><p>Otherwise, the next iteration uses only the remaining uncategorized transactions as input.</p></li>
+</ul>
+</li>
+<li><p><strong>Result Merging</strong></p>
+<ul class="simple">
+<li><p>After the loop, the script merges all intermediate JSON results (from each iteration) into consolidated files for:</p></li>
+<li><p>All categorized transactions</p></li>
+<li><p>All uncategorized transactions</p></li>
+<li><p>All inconsistently categorized transactions</p></li>
+<li><p>Merged category/keyword mappings</p></li>
+</ul>
+</li>
+<li><p><strong>Helper Functions</strong></p>
+<ul class="simple">
+<li><p>Includes utilities for running scripts, counting uncategorized transactions, merging JSON files, and saving merged results.</p></li>
+</ul>
+</li>
+</ol>
+<figure class="align-default" id="id1">
+<a class="reference internal image-reference" href="_images/AI_Loop.png"><img alt="Description of image" src="_images/AI_Loop.png" style="width: 600px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Iterative AI-based categorization workflow</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-07_AI_categorisation.scripts.GenCat">
+<span id="scripts-gencat-py-module"></span><h2>scripts/GenCat.py module<a class="headerlink" href="#module-07_AI_categorisation.scripts.GenCat" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.GenCat.GenAICat">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.scripts.GenCat.</span></span><span class="sig-name descname"><span class="pre">GenAICat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*,</span> <span class="pre">Category:</span> <span class="pre">str,</span> <span class="pre">Keywords:</span> <span class="pre">list[~07_AI_categorisation.scripts.GenCat.KeywordEntry]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.scripts.GenCat.GenAICat" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>GenAICat represents a generic AI-generated category with associated keywords.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>Category (str): The name of the category.
+Keywords (list[str]): A list of keywords relevant to the category.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.GenCat.GenAICat.Category">
+<span class="sig-name descname"><span class="pre">Category</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#AI_categorisation.scripts.GenCat.GenAICat.Category" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.GenCat.GenAICat.Keywords">
+<span class="sig-name descname"><span class="pre">Keywords</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list[~07_AI_categorisation.scripts.GenCat.KeywordEntry]</span></em><a class="headerlink" href="#AI_categorisation.scripts.GenCat.GenAICat.Keywords" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.GenCat.GenAICat.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#AI_categorisation.scripts.GenCat.GenAICat.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.GenCat.KeywordEntry">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.scripts.GenCat.</span></span><span class="sig-name descname"><span class="pre">KeywordEntry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">keyword</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reasoning</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.scripts.GenCat.KeywordEntry" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.GenCat.KeywordEntry.confidence">
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#AI_categorisation.scripts.GenCat.KeywordEntry.confidence" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.GenCat.KeywordEntry.keyword">
+<span class="sig-name descname"><span class="pre">keyword</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#AI_categorisation.scripts.GenCat.KeywordEntry.keyword" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.GenCat.KeywordEntry.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#AI_categorisation.scripts.GenCat.KeywordEntry.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.GenCat.KeywordEntry.reasoning">
+<span class="sig-name descname"><span class="pre">reasoning</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#AI_categorisation.scripts.GenCat.KeywordEntry.reasoning" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.GenCat.is_valid_json">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.scripts.GenCat.</span></span><span class="sig-name descname"><span class="pre">is_valid_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.scripts.GenCat.is_valid_json" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if the provided text is a valid JSON string.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>text (str): The string to be checked for valid JSON format.</p>
+</dd>
+<dt>Returns:</dt><dd><p>bool: True if the text is valid JSON, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.GenCat.main">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.scripts.GenCat.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.scripts.GenCat.main" title="Link to this definition">¶</a></dt>
+<dd><p>Main function to categorize transactions using AI.
+Reads the prompt and transaction data, sends it to the AI model, and saves the response.</p>
+</dd></dl>
+
+</section>
+<section id="module-07_AI_categorisation.scripts.gen_cat_eval">
+<span id="scripts-gen-cat-eval-py-module"></span><h2>scripts/gen_cat_eval.py module<a class="headerlink" href="#module-07_AI_categorisation.scripts.gen_cat_eval" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.gen_cat_eval.build_keyword_mappings">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.scripts.gen_cat_eval.</span></span><span class="sig-name descname"><span class="pre">build_keyword_mappings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ai_categories</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.scripts.gen_cat_eval.build_keyword_mappings" title="Link to this definition">¶</a></dt>
+<dd><p>Builds mappings between keywords and categories from a list of AI category entries.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>ai_categories (list): A list of dictionaries, where each dictionary represents a category entry with the following structure:</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>tuple: A tuple containing four elements:</dt><dd><ul class="simple">
+<li><p>keyword_to_category (dict): Maps each keyword (str) to a set of categories (set of str) it belongs to.</p></li>
+<li><p>category_to_keywords (defaultdict): Maps each category (str) to a set of keywords (set of str) associated with it.</p></li>
+<li><p>all_keywords (list): A list of all keywords (str) found in the input.</p></li>
+<li><p>keyword_confidence (dict): Maps each keyword (str) to its confidence value (float or int), if provided.</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.gen_cat_eval.check_category_consistency">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.scripts.gen_cat_eval.</span></span><span class="sig-name descname"><span class="pre">check_category_consistency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keyword_to_category</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.scripts.gen_cat_eval.check_category_consistency" title="Link to this definition">¶</a></dt>
+<dd><p>Loads transaction data and AI-generated categories from specified JSON files.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>transactions_path (str): Path to the JSON file containing transaction data.
+categories_path (str): Path to the JSON file containing AI-generated categories.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>tuple: A tuple containing:</dt><dd><ul class="simple">
+<li><p>transactions (dict or list): The loaded transaction data.</p></li>
+<li><p>ai_categories (dict or list): The loaded AI-generated categories.</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.gen_cat_eval.find_duplicate_keywords">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.scripts.gen_cat_eval.</span></span><span class="sig-name descname"><span class="pre">find_duplicate_keywords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keyword_to_category</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.scripts.gen_cat_eval.find_duplicate_keywords" title="Link to this definition">¶</a></dt>
+<dd><p>Finds keywords that are associated with more than one category.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>keyword_to_category (dict): A dictionary where keys are keywords and values are lists or sets of categories associated with each keyword.</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: A dictionary containing only the keywords that are associated with more than one category, mapping each such keyword to its list or set of categories.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.gen_cat_eval.find_missing_categories">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.scripts.gen_cat_eval.</span></span><span class="sig-name descname"><span class="pre">find_missing_categories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">category_to_keywords</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.scripts.gen_cat_eval.find_missing_categories" title="Link to this definition">¶</a></dt>
+<dd><p>Finds and returns the set of desired categories that are missing from the provided category-to-keywords mapping.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>category_to_keywords (dict): A dictionary mapping category names (str) to their associated keywords.</p>
+</dd>
+<dt>Returns:</dt><dd><p>set: A set of category names (str) that are present in the predefined list of desired categories but missing from the input dictionary.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.gen_cat_eval.load_data">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.scripts.gen_cat_eval.</span></span><span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transactions_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.scripts.gen_cat_eval.load_data" title="Link to this definition">¶</a></dt>
+<dd><p>Loads transaction data and AI-generated categories from specified JSON files.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>transactions_path (str): Path to the JSON file containing transaction data.
+categories_path (str): Path to the JSON file containing AI-generated categories.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>tuple: A tuple containing:</dt><dd><ul class="simple">
+<li><p>transactions (dict or list): The loaded transaction data.</p></li>
+<li><p>ai_categories (dict or list): The loaded AI-generated categories.</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.gen_cat_eval.main">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.scripts.gen_cat_eval.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.scripts.gen_cat_eval.main" title="Link to this definition">¶</a></dt>
+<dd><p>Main entry point for evaluating AI-based transaction categorization.
+This function determines file paths for input and output data, either from command-line arguments or default locations.
+It loads transaction and category data, builds keyword mappings, matches transactions to categories, and identifies
+unmatched, duplicate, inconsistent, and missing categorizations. Results are saved to output files, and summary
+statistics are printed to the console.</p>
+<dl class="simple">
+<dt>Command-line arguments (optional):</dt><dd><ol class="arabic simple">
+<li><p>transactions_path: Path to the transactions JSON file.</p></li>
+<li><p>categories_path: Path to the AI-categorized categories JSON file.</p></li>
+<li><p>uncategorized_path: Path to save unmatched transactions.</p></li>
+<li><p>inconsistent_path: Path to save inconsistent categorizations.</p></li>
+</ol>
+</dd>
+</dl>
+<p>If arguments are not provided, default paths in the outputs directory are used.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.gen_cat_eval.match_transactions">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.scripts.gen_cat_eval.</span></span><span class="sig-name descname"><span class="pre">match_transactions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keyword_to_category</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.scripts.gen_cat_eval.match_transactions" title="Link to this definition">¶</a></dt>
+<dd><p>Matches transactions to categories based on provided keywords.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>transactions (list of dict): A list of transaction dictionaries. Each transaction should contain
+the keys ‘sender_receiver’, ‘booking_text’, and ‘purpose’.
+keyword_to_category (dict): A dictionary mapping keywords (str) to a list or set of categories.</p>
+</dd>
+<dt>Returns:</dt><dd><p>tuple:
+matched_categories (list): A list of categories matched from the transactions.
+unmatched (list): A list of transaction dictionaries that did not match any keyword.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.gen_cat_eval.print_confidence_statistics">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.scripts.gen_cat_eval.</span></span><span class="sig-name descname"><span class="pre">print_confidence_statistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keyword_confidence</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.scripts.gen_cat_eval.print_confidence_statistics" title="Link to this definition">¶</a></dt>
+<dd><p>Prints statistical information and generates a histogram for keyword confidence scores.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>keyword_confidence (dict): A dictionary where values are confidence scores (int or float) associated with keywords.</p>
+</dd>
+<dt>Behavior:</dt><dd><ul class="simple">
+<li><p>Calculates and prints the minimum, maximum, and average confidence scores.</p></li>
+<li><p>Plots and saves a histogram of the confidence scores as ‘confidence_histogram.png’ in the outputs directory.</p></li>
+<li><p>If no valid confidence values are found, prints a corresponding message.</p></li>
+</ul>
+</dd>
+<dt>Notes:</dt><dd><ul class="simple">
+<li><p>The function expects matplotlib.pyplot as plt and os to be imported.</p></li>
+<li><p>The outputs directory is assumed to be located one level above the script’s directory.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.gen_cat_eval.print_summary">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.scripts.gen_cat_eval.</span></span><span class="sig-name descname"><span class="pre">print_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unmatched</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inconsistent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.scripts.gen_cat_eval.print_summary" title="Link to this definition">¶</a></dt>
+<dd><p>Prints a summary of transaction categorization results.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>transactions (list): The list of all transactions processed.
+unmatched (list): The list of transactions that could not be matched to a category.
+inconsistent (list): The list of transactions with inconsistent categorizations.</p>
+</dd>
+<dt>Prints:</dt><dd><ul class="simple">
+<li><p>Total number of transactions.</p></li>
+<li><p>Number of matched transactions.</p></li>
+<li><p>Number of unmatched transactions.</p></li>
+<li><p>Number of inconsistent categorizations.</p></li>
+<li><p>Coverage percentage of matched transactions.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.gen_cat_eval.save_inconsistent_categorizations">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.scripts.gen_cat_eval.</span></span><span class="sig-name descname"><span class="pre">save_inconsistent_categorizations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inconsistent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'inconsistent_categorizations.json'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.scripts.gen_cat_eval.save_inconsistent_categorizations" title="Link to this definition">¶</a></dt>
+<dd><p>Saves inconsistent categorizations of transactions to a JSON file.
+This function takes a dictionary of inconsistent categorizations, a list of transaction dictionaries,
+and writes the inconsistent entries to a JSON file. Each entry in the output contains the full transaction
+information (if available) and the list of inconsistent categories. If the full transaction cannot be found,
+the normalized transaction text is included instead.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>inconsistent (dict): A mapping from normalized transaction text to a set or list of inconsistent categories.
+transactions (list): A list of transaction dictionaries, each containing transaction details.
+output_path (str, optional): The file path to save the output JSON. Defaults to “inconsistent_categorizations.json”.</p>
+</dd>
+<dt>Returns:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.gen_cat_eval.save_unmatched_transactions">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.scripts.gen_cat_eval.</span></span><span class="sig-name descname"><span class="pre">save_unmatched_transactions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unmatched</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.scripts.gen_cat_eval.save_unmatched_transactions" title="Link to this definition">¶</a></dt>
+<dd><p>Saves a list of unmatched transactions to a JSON file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>unmatched (list): A list of unmatched transaction records to be saved.
+output_path (str, optional): The file path where the JSON file will be saved.
+If None, saves to ‘uncategorized_transactions.json’ in the current script’s directory.</p>
+</dd>
+<dt>Returns:</dt><dd><p>None</p>
+</dd>
+<dt>Raises:</dt><dd><p>OSError: If there is an error writing to the specified file path.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-07_AI_categorisation.scripts.clean_ai_categorisation">
+<span id="scripts-clean-ai-categorisation-py-module"></span><h2>scripts/clean_ai_categorisation.py module<a class="headerlink" href="#module-07_AI_categorisation.scripts.clean_ai_categorisation" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.clean_ai_categorisation.clean_ai_categorisation">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.scripts.clean_ai_categorisation.</span></span><span class="sig-name descname"><span class="pre">clean_ai_categorisation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.scripts.clean_ai_categorisation.clean_ai_categorisation" title="Link to this definition">¶</a></dt>
+<dd><p>Cleans and consolidates AI categorisation data from a JSON file.
+This function reads a JSON file containing categories and associated keywords (with reasoning and confidence),
+merges duplicate keywords (preferring non-‘Other’ categories when conflicts arise), and outputs a cleaned,
+sorted mapping of categories to their keywords.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>input_path (str): Path to the input JSON file containing the raw categorisation data.
+output_path (str): Path where the cleaned JSON file will be saved.</p>
+</dd>
+<dt>The output JSON will be a list of dictionaries, each with:</dt><dd><ul class="simple">
+<li><p>“Category”: The category name.</p></li>
+<li><p>“Keywords”: A sorted list of keyword entries (each with “keyword”, “reasoning”, and “confidence”).</p></li>
+</ul>
+</dd>
+<dt>Side Effects:</dt><dd><ul class="simple">
+<li><p>Writes the cleaned data to the specified output path.</p></li>
+<li><p>Prints a confirmation message upon successful save.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.clean_ai_categorisation.load_json">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.scripts.clean_ai_categorisation.</span></span><span class="sig-name descname"><span class="pre">load_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.scripts.clean_ai_categorisation.load_json" title="Link to this definition">¶</a></dt>
+<dd><p>Loads and returns the contents of a JSON file from the specified path.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>path (str): The file path to the JSON file.</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict or list: The parsed JSON data from the file.</p>
+</dd>
+<dt>Raises:</dt><dd><p>FileNotFoundError: If the specified file does not exist.
+json.JSONDecodeError: If the file is not valid JSON.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.clean_ai_categorisation.save_json">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.scripts.clean_ai_categorisation.</span></span><span class="sig-name descname"><span class="pre">save_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.scripts.clean_ai_categorisation.save_json" title="Link to this definition">¶</a></dt>
+<dd><p>Save the given data as a JSON file at the specified path.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>data (Any): The data to be serialized and saved as JSON.
+path (str or Path): The file path where the JSON data will be written.</p>
+</dd>
+<dt>Raises:</dt><dd><p>TypeError: If the data provided is not serializable to JSON.
+OSError: If the file cannot be written due to an OS-related error.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-07_AI_categorisation.scripts.refine_other_loop">
+<span id="scripts-refine-other-loop-py-module"></span><h2>scripts/refine_other_loop.py module<a class="headerlink" href="#module-07_AI_categorisation.scripts.refine_other_loop" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.refine_other_loop.build_batch_prompt">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.scripts.refine_other_loop.</span></span><span class="sig-name descname"><span class="pre">build_batch_prompt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transactions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.scripts.refine_other_loop.build_batch_prompt" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.refine_other_loop.load_transactions">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.scripts.refine_other_loop.</span></span><span class="sig-name descname"><span class="pre">load_transactions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.scripts.refine_other_loop.load_transactions" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.refine_other_loop.main">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.scripts.refine_other_loop.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.scripts.refine_other_loop.main" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.refine_other_loop.process_batch">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.scripts.refine_other_loop.</span></span><span class="sig-name descname"><span class="pre">process_batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.scripts.refine_other_loop.process_batch" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.refine_other_loop.refine">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.scripts.refine_other_loop.</span></span><span class="sig-name descname"><span class="pre">refine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.scripts.refine_other_loop.refine" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.refine_other_loop.save_transactions">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.scripts.refine_other_loop.</span></span><span class="sig-name descname"><span class="pre">save_transactions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.scripts.refine_other_loop.save_transactions" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-07_AI_categorisation.scripts.prompt_for_other_loop">
+<span id="scripts-prompt-for-other-loop-py-module"></span><h2>scripts/prompt_for_other_loop.py module<a class="headerlink" href="#module-07_AI_categorisation.scripts.prompt_for_other_loop" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.scripts.prompt_for_other_loop.build_batch_prompt">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.scripts.prompt_for_other_loop.</span></span><span class="sig-name descname"><span class="pre">build_batch_prompt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transactions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.scripts.prompt_for_other_loop.build_batch_prompt" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-07_AI_categorisation.main_categorization">
+<span id="main-categorization-py-module"></span><h2>main_categorization.py module<a class="headerlink" href="#module-07_AI_categorisation.main_categorization" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.main_categorization.load_uncategorized_count">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.main_categorization.</span></span><span class="sig-name descname"><span class="pre">load_uncategorized_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uncategorized_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.main_categorization.load_uncategorized_count" title="Link to this definition">¶</a></dt>
+<dd><p>Loads and returns the count of uncategorized items from a JSON file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>uncategorized_path (str): The file path to the JSON file containing uncategorized items.</p>
+</dd>
+<dt>Returns:</dt><dd><p>int: The number of uncategorized items. Returns 0 if the file does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.main_categorization.main">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.main_categorization.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.main_categorization.main" title="Link to this definition">¶</a></dt>
+<dd><p>Main iterative categorization workflow. This function orchestrates the iterative process of categorizing transactions using AI-based scripts.</p>
+<dl class="simple">
+<dt>It performs the following steps in each iteration:</dt><dd><ol class="arabic simple">
+<li><p>Runs the AI categorization script on the input transactions.</p></li>
+<li><p>Cleans the categorization output.</p></li>
+<li><p>Evaluates the cleaned output to identify uncategorized and inconsistently categorized transactions.</p></li>
+<li><p>Checks the number of remaining uncategorized transactions.</p></li>
+<li><p>If all transactions are categorized or no improvement is observed, the loop stops; otherwise, it continues with the uncategorized transactions as input.</p></li>
+</ol>
+</dd>
+</dl>
+<p>After the iterations, the function merges all intermediate results into consolidated output files for categorized, uncategorized, and inconsistent transactions, as well as merged category files.</p>
+<dl class="simple">
+<dt>Variables:</dt><dd><ul class="simple">
+<li><p>iteration: Current iteration number.</p></li>
+<li><p>previous_count: Number of uncategorized transactions from the previous iteration.</p></li>
+<li><p>gen_cat_input: Path to the input file for categorization in the current iteration.</p></li>
+</ul>
+</dd>
+<dt>The function relies on several helper functions and scripts:</dt><dd><ul class="simple">
+<li><p>run_script: Executes external scripts for categorization, cleaning, and evaluation.</p></li>
+<li><p>load_uncategorized_count: Loads the count of uncategorized transactions from a file.</p></li>
+<li><p>save_merged: Merges multiple JSON files matching a pattern into a single file.</p></li>
+<li><p>save_merged_categories: Merges category information from multiple files.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Constants such as INPUTS_DIR, OUTPUTS_DIR, SCRIPTS_DIR, and MAX_ITERATIONS must be defined elsewhere in the code.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.main_categorization.merge_category_json_files">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.main_categorization.</span></span><span class="sig-name descname"><span class="pre">merge_category_json_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.main_categorization.merge_category_json_files" title="Link to this definition">¶</a></dt>
+<dd><p>Merges multiple JSON files containing category-keyword mappings into a single list of dictionaries.</p>
+<p>Each input JSON file should contain a list of dictionaries, where each dictionary has a “Category” key
+and a “Keywords” key (a list of keyword dictionaries). The function combines all unique keywords for each
+category across all files matching the given glob pattern.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>pattern (str): A glob pattern to match JSON files to be merged.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>List[Dict[str, Any]]: A list of dictionaries, each with “Category” and “Keywords” keys.</dt><dd><ul class="simple">
+<li><p>“Category” (str): The category name.</p></li>
+<li><p>“Keywords” (List[Dict[str, Any]]): A sorted list of unique keyword dictionaries for the category.</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt>Notes:</dt><dd><ul class="simple">
+<li><p>Only unique keywords (by the ‘keyword’ field) are included per category.</p></li>
+<li><p>Categories and keywords are sorted alphabetically.</p></li>
+<li><p>Files that cannot be read or parsed are skipped with an error message.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.main_categorization.merge_json_files">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.main_categorization.</span></span><span class="sig-name descname"><span class="pre">merge_json_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.main_categorization.merge_json_files" title="Link to this definition">¶</a></dt>
+<dd><p>Merges multiple JSON files matching a given glob pattern into a single list, removing duplicates.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>pattern (str): Glob pattern to match JSON files (e.g., ‘data/json’).
+key (str, optional): Key to use for identifying unique entries in the JSON objects.
+If not provided, the entire entry is used for uniqueness.</p>
+</dd>
+<dt>Returns:</dt><dd><p>list: A list containing merged and deduplicated JSON objects from all matched files.</p>
+</dd>
+<dt>Notes:</dt><dd><ul class="simple">
+<li><p>Each file can contain a single JSON object or a list of objects.</p></li>
+<li><p>If a file contains a single object, it is wrapped in a list.</p></li>
+<li><p>Duplicate entries are removed based on the specified key or the serialized entry.</p></li>
+<li><p>Errors in reading or parsing files are printed but do not stop processing.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.main_categorization.run_script">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.main_categorization.</span></span><span class="sig-name descname"><span class="pre">run_script</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">script_and_args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.main_categorization.run_script" title="Link to this definition">¶</a></dt>
+<dd><p>Executes a Python script with the specified arguments as a subprocess.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>script_and_args (list): A list containing the script name followed by its arguments.</p>
+</dd>
+<dt>Prints:</dt><dd><p>The command being run, the standard output of the subprocess, and any errors encountered.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.main_categorization.save_merged">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.main_categorization.</span></span><span class="sig-name descname"><span class="pre">save_merged</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.main_categorization.save_merged" title="Link to this definition">¶</a></dt>
+<dd><p>Merges multiple JSON files matching a given pattern and saves the merged result to an output file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>pattern (str): The glob pattern to match JSON files for merging.
+outname (str): The filename where the merged JSON data will be saved.
+key (str, optional): If provided, merge the JSON files based on this key.</p>
+</dd>
+<dt>Returns:</dt><dd><p>None</p>
+</dd>
+<dt>Side Effects:</dt><dd><p>Writes the merged JSON data to the specified output file and prints a confirmation message.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="AI_categorisation.main_categorization.save_merged_categories">
+<span class="sig-prename descclassname"><span class="pre">07_AI_categorisation.main_categorization.</span></span><span class="sig-name descname"><span class="pre">save_merged_categories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#AI_categorisation.main_categorization.save_merged_categories" title="Link to this definition">¶</a></dt>
+<dd><p>Merges multiple category JSON files matching a given pattern and saves the merged result to a specified output file.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>pattern (str): The glob pattern to match input JSON files for merging.
+outname (str): The filename for the merged output JSON file.</p>
+</dd>
+<dt>Returns:</dt><dd><p>None</p>
+</dd>
+<dt>Side Effects:</dt><dd><p>Writes the merged JSON data to the specified output file and prints a confirmation message.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">FinTrack</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="03_data_cleaning.html">Data cleaning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_analysis.html">Data analysis</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AI supported Data categorization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-07_AI_categorisation.scripts.GenCat">scripts/GenCat.py module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-07_AI_categorisation.scripts.gen_cat_eval">scripts/gen_cat_eval.py module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-07_AI_categorisation.scripts.clean_ai_categorisation">scripts/clean_ai_categorisation.py module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-07_AI_categorisation.scripts.refine_other_loop">scripts/refine_other_loop.py module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-07_AI_categorisation.scripts.prompt_for_other_loop">scripts/prompt_for_other_loop.py module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-07_AI_categorisation.main_categorization">main_categorization.py module</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">FinTrack</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="03_data_cleaning.html">Data cleaning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_analysis.html">Data analysis</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">AI supported Data categorization</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="05_analysis.html" title="previous chapter">Data analysis</a></li>
+      <li>Next: <a href="modules.html" title="next chapter">FinTrack</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Marija Trivic.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/07_AI_categorisation.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
