@@ -28,7 +28,7 @@ The `analysis_plotting.py` script performs data analysis and generates visual re
 
 ## Project documentation
 
-- [Project Documentation (HTML)](FinTrack/06_documentation/build/html/index.html) 
+- [Project Documentation (HTML)](https://TrivicM.github.io/FinTrack/)
 
 ## Example of the FinTrack report
 
@@ -36,4 +36,3 @@ The `analysis_plotting.py` script performs data analysis and generates visual re
 
 ---
 
-   
