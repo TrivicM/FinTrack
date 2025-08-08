@@ -1,10 +1,28 @@
+"""
+db_update.py
+============
+
+This module provides tools for importing, cleaning, and unifying bank transaction data from various CSV formats into a single SQLite database.
+It supports multiple banks, automatic column mapping, duplicate detection, and robust logging.
+
+Main features:
+- Automatically detects and maps columns from different banks to a unified schema.
+- Handles various encodings and CSV header formats.
+- Cleans and normalizes data for consistency.
+- Generates a unique hash for each transaction to prevent duplicates.
+- Saves all transactions into an SQLite database.
+- Logs all processing steps and errors for traceability.
+
+Usage:
+    Run this script to process all CSV files in the `02_raw_data` directory and update the `bank_statements.db` database.
+"""
+
 import pandas as pd
 import sqlite3
 import os
 import glob
 import logging
 import hashlib
-import numpy as np
 
 # Setup paths
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -84,6 +102,13 @@ ALL_COLUMNS_WITH_HASH = ALL_COLUMNS + ["transaction_hash"]
 def create_transactions_table(db_path, table_name="transactions"):
     """
     Create the transactions table with all possible columns and a unique constraint on transaction_hash.
+
+    Args:
+        db_path (str): Path to the SQLite database file.
+        table_name (str, optional): Name of the table to create (default is "transactions").
+
+    Returns:
+        None
     """
     conn = sqlite3.connect(db_path)
     columns_sql = ", ".join([f'"{col}" TEXT' for col in ALL_COLUMNS_WITH_HASH])
@@ -100,7 +125,17 @@ def create_transactions_table(db_path, table_name="transactions"):
 def find_header_row(file_path, sep=';', encoding='utf-8'):
     """
     Find the header row in a CSV file by matching known column names.
-    Returns the row index of the header.
+
+    Args:
+        file_path (str): Path to the CSV file.
+        sep (str, optional): CSV separator (default is ';').
+        encoding (str, optional): File encoding (default is 'utf-8').
+
+    Returns:
+        int: The row index of the header.
+
+    Raises:
+        ValueError: If the header row cannot be found.
     """
     with open(file_path, 'r', encoding=encoding) as f:
         for i, line in enumerate(f):
@@ -115,8 +150,15 @@ def find_header_row(file_path, sep=';', encoding='utf-8'):
 
 def row_hash(row):
     """
-    Generate a hash for a row based on all available data.
+    Generate a SHA-256 hash for a row based on all available data.
+
+    Args:
+        row (pandas.Series): A row of transaction data.
+
+    Returns:
+        str: The SHA-256 hash of the row as a hexadecimal string.
     """
+
     concat = '|'.join([str(row.get(col, '')).strip() for col in ALL_COLUMNS])
     return hashlib.sha256(concat.encode('utf-8')).hexdigest()
 
@@ -124,8 +166,21 @@ def load_csv_with_mapping(file_path, bank_name, sep=";"):
     """
     Load a CSV file, map its columns to unified names, clean and convert data types,
     and return a DataFrame ready for database insertion.
+
     Tries UTF-8 encoding first, then falls back to ISO-8859-1.
+
+    Args:
+        file_path (str): Path to the CSV file.
+        bank_name (str): Name of the bank (used for the 'bank_name' column).
+        sep (str, optional): CSV separator (default is ';').
+
+    Returns:
+        pandas.DataFrame: DataFrame with unified columns and a transaction_hash column.
+
+    Raises:
+        ValueError: If the file cannot be read with the supported encodings.
     """
+
     # Try UTF-8 first, then fallback to ISO-8859-1
     encodings = ['utf-8', 'ISO-8859-1']
     for encoding in encodings:
@@ -204,8 +259,21 @@ def load_csv_with_mapping(file_path, bank_name, sep=";"):
 def save_to_sqlite(df, db_path=db_path, table_name="transactions"):
     """
     Save the DataFrame into an SQLite database, ignoring duplicates.
+
     Logs the number of records saved and duplicates skipped.
+
+    Args:
+        df (pandas.DataFrame): DataFrame to save.
+        db_path (str, optional): Path to the SQLite database file.
+        table_name (str, optional): Name of the table to save to.
+
+    Returns:
+        None
+
+    Raises:
+        Exception: If there is an error saving to the database.
     """
+
     conn = sqlite3.connect(db_path)
     try:
         before = pd.read_sql_query(f"SELECT COUNT(*) as cnt FROM {table_name}", conn)["cnt"][0]
@@ -225,7 +293,16 @@ def save_to_sqlite(df, db_path=db_path, table_name="transactions"):
 def detect_bank_name(filename):
     """
     Extract only the bank name from filename (without extension and year/suffix).
-    E.g. 'Bank_A -2024.csv' or 'Bank_A_2024.csv' -> 'Bank_A'
+
+    Examples:
+        'Bank_A-2024.csv' -> 'Bank_A'
+        'Bank_B_2023.csv' -> 'Bank_B'
+
+    Args:
+        filename (str): The filename to extract the bank name from.
+
+    Returns:
+        str: The extracted bank name.
     """
     base = os.path.splitext(os.path.basename(filename))[0]
     # Split at first space, dash, or underscore followed by a year or any non-letter
@@ -237,22 +314,23 @@ def detect_bank_name(filename):
 
 # ---------------------------- MAIN EXECUTION ----------------------------
 
-# Automatically find all CSV files in the raw data folder
-raw_data_dir = os.path.abspath(os.path.join(script_dir, '..', '02_raw_data'))
-csv_files = glob.glob(os.path.join(raw_data_dir, '*.csv')) + glob.glob(os.path.join(raw_data_dir, '*.CSV'))
+if __name__ == "__main__":
+    # Automatically find all CSV files in the raw data folder
+    raw_data_dir = os.path.abspath(os.path.join(script_dir, '..', '02_raw_data'))
+    csv_files = glob.glob(os.path.join(raw_data_dir, '*.csv')) + glob.glob(os.path.join(raw_data_dir, '*.CSV'))
 
-if not csv_files:
-    logging.warning(f"No CSV files found in {raw_data_dir}")
-else:
-    logging.info(f"Found {len(csv_files)} CSV files in {raw_data_dir}")
+    if not csv_files:
+        logging.warning(f"No CSV files found in {raw_data_dir}")
+    else:
+        logging.info(f"Found {len(csv_files)} CSV files in {raw_data_dir}")
 
-create_transactions_table(db_path)
+    create_transactions_table(db_path)
 
-for path in csv_files:
-    bank_name = detect_bank_name(path)
-    try:
-        df = load_csv_with_mapping(path, bank_name)
-        save_to_sqlite(df, db_path=db_path)
-        logging.info(f"Processed and saved: {os.path.basename(path)}")
-    except Exception as e:
-        logging.error(f"Error processing file {path}:\n{e}")
+    for path in csv_files:
+        bank_name = detect_bank_name(path)
+        try:
+            df = load_csv_with_mapping(path, bank_name)
+            save_to_sqlite(df, db_path=db_path)
+            logging.info(f"Processed and saved: {os.path.basename(path)}")
+        except Exception as e:
+            logging.error(f"Error processing file {path}:\n{e}")
