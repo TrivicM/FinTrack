@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>FinTrack &#8212; FinTrack v1.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=76e2d817"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="AI supported Data categorization" href="07_AI_categorisation.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="fintrack">
+<h1>FinTrack<a class="headerlink" href="#fintrack" title="Link to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="03_data_cleaning.html">Data cleaning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="03_data_cleaning.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_data_cleaning.html#module-03_data_cleaning.db_update">db_update.py module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="03_data_cleaning.html#db-update-py">db_update.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_data_cleaning.html#data_cleaning.db_update.create_transactions_table"><code class="docutils literal notranslate"><span class="pre">create_transactions_table()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_data_cleaning.html#data_cleaning.db_update.detect_bank_name"><code class="docutils literal notranslate"><span class="pre">detect_bank_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_data_cleaning.html#data_cleaning.db_update.find_header_row"><code class="docutils literal notranslate"><span class="pre">find_header_row()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_data_cleaning.html#data_cleaning.db_update.load_csv_with_mapping"><code class="docutils literal notranslate"><span class="pre">load_csv_with_mapping()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_data_cleaning.html#data_cleaning.db_update.row_hash"><code class="docutils literal notranslate"><span class="pre">row_hash()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_data_cleaning.html#data_cleaning.db_update.save_to_sqlite"><code class="docutils literal notranslate"><span class="pre">save_to_sqlite()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="05_analysis.html">Data analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="05_analysis.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_analysis.html#module-05_analysis.analysis">analysis.py module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="05_analysis.html#analysis.analysis.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="05_analysis.html#analysis.analysis.normalize_text"><code class="docutils literal notranslate"><span class="pre">normalize_text()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="07_AI_categorisation.html">AI supported Data categorization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="07_AI_categorisation.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07_AI_categorisation.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07_AI_categorisation.html#module-07_AI_categorisation.scripts.GenCat">scripts/GenCat.py module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.GenCat.GenAICat"><code class="docutils literal notranslate"><span class="pre">GenAICat</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.GenCat.GenAICat.Category"><code class="docutils literal notranslate"><span class="pre">GenAICat.Category</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.GenCat.GenAICat.Keywords"><code class="docutils literal notranslate"><span class="pre">GenAICat.Keywords</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="07_AI_categorisation.html#id0"><code class="docutils literal notranslate"><span class="pre">GenAICat.Category</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="07_AI_categorisation.html#id1"><code class="docutils literal notranslate"><span class="pre">GenAICat.Keywords</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.GenCat.GenAICat.model_config"><code class="docutils literal notranslate"><span class="pre">GenAICat.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.GenCat.KeywordEntry"><code class="docutils literal notranslate"><span class="pre">KeywordEntry</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.GenCat.KeywordEntry.confidence"><code class="docutils literal notranslate"><span class="pre">KeywordEntry.confidence</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.GenCat.KeywordEntry.keyword"><code class="docutils literal notranslate"><span class="pre">KeywordEntry.keyword</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.GenCat.KeywordEntry.model_config"><code class="docutils literal notranslate"><span class="pre">KeywordEntry.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.GenCat.KeywordEntry.reasoning"><code class="docutils literal notranslate"><span class="pre">KeywordEntry.reasoning</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.GenCat.is_valid_json"><code class="docutils literal notranslate"><span class="pre">is_valid_json()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.GenCat.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="07_AI_categorisation.html#module-07_AI_categorisation.scripts.gen_cat_eval">scripts/gen_cat_eval.py module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.gen_cat_eval.build_keyword_mappings"><code class="docutils literal notranslate"><span class="pre">build_keyword_mappings()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.gen_cat_eval.check_category_consistency"><code class="docutils literal notranslate"><span class="pre">check_category_consistency()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.gen_cat_eval.find_duplicate_keywords"><code class="docutils literal notranslate"><span class="pre">find_duplicate_keywords()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.gen_cat_eval.find_missing_categories"><code class="docutils literal notranslate"><span class="pre">find_missing_categories()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.gen_cat_eval.load_data"><code class="docutils literal notranslate"><span class="pre">load_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.gen_cat_eval.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.gen_cat_eval.match_transactions"><code class="docutils literal notranslate"><span class="pre">match_transactions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.gen_cat_eval.print_confidence_statistics"><code class="docutils literal notranslate"><span class="pre">print_confidence_statistics()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.gen_cat_eval.print_summary"><code class="docutils literal notranslate"><span class="pre">print_summary()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.gen_cat_eval.save_inconsistent_categorizations"><code class="docutils literal notranslate"><span class="pre">save_inconsistent_categorizations()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.gen_cat_eval.save_unmatched_transactions"><code class="docutils literal notranslate"><span class="pre">save_unmatched_transactions()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="07_AI_categorisation.html#module-07_AI_categorisation.scripts.clean_ai_categorisation">scripts/clean_ai_categorisation.py module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.clean_ai_categorisation.clean_ai_categorisation"><code class="docutils literal notranslate"><span class="pre">clean_ai_categorisation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.clean_ai_categorisation.load_json"><code class="docutils literal notranslate"><span class="pre">load_json()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.clean_ai_categorisation.save_json"><code class="docutils literal notranslate"><span class="pre">save_json()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="07_AI_categorisation.html#module-07_AI_categorisation.scripts.refine_other_loop">scripts/refine_other_loop.py module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.refine_other_loop.build_batch_prompt"><code class="docutils literal notranslate"><span class="pre">build_batch_prompt()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.refine_other_loop.load_transactions"><code class="docutils literal notranslate"><span class="pre">load_transactions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.refine_other_loop.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.refine_other_loop.process_batch"><code class="docutils literal notranslate"><span class="pre">process_batch()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.refine_other_loop.refine"><code class="docutils literal notranslate"><span class="pre">refine()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.refine_other_loop.save_transactions"><code class="docutils literal notranslate"><span class="pre">save_transactions()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="07_AI_categorisation.html#module-07_AI_categorisation.scripts.prompt_for_other_loop">scripts/prompt_for_other_loop.py module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.scripts.prompt_for_other_loop.build_batch_prompt"><code class="docutils literal notranslate"><span class="pre">build_batch_prompt()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="07_AI_categorisation.html#module-07_AI_categorisation.main_categorization">main_categorization.py module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.main_categorization.load_uncategorized_count"><code class="docutils literal notranslate"><span class="pre">load_uncategorized_count()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.main_categorization.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.main_categorization.merge_category_json_files"><code class="docutils literal notranslate"><span class="pre">merge_category_json_files()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.main_categorization.merge_json_files"><code class="docutils literal notranslate"><span class="pre">merge_json_files()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.main_categorization.run_script"><code class="docutils literal notranslate"><span class="pre">run_script()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.main_categorization.save_merged"><code class="docutils literal notranslate"><span class="pre">save_merged()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_AI_categorisation.html#AI_categorisation.main_categorization.save_merged_categories"><code class="docutils literal notranslate"><span class="pre">save_merged_categories()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">FinTrack</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="03_data_cleaning.html">Data cleaning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_analysis.html">Data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_AI_categorisation.html">AI supported Data categorization</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">FinTrack</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="03_data_cleaning.html">Data cleaning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_analysis.html">Data analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07_AI_categorisation.html">AI supported Data categorization</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="07_AI_categorisation.html" title="previous chapter">AI supported Data categorization</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Marija Trivic.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/modules.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
