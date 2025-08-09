@@ -1,3 +1,21 @@
+"""
+analysis.py
+
+This script performs comprehensive financial analysis and reporting for bank transactions.
+It loads transaction data from an SQLite database, applies AI-generated categorization rules,
+aggregates and visualizes financial data, and generates a detailed PDF report.
+
+Key features:
+    - Loads AI-generated categories for transaction classification.
+    - Categorizes transactions using fast, vectorized keyword matching.
+    - Aggregates data by year, month, and category.
+    - Exports uncategorized transactions for review.
+    - Generates cumulative spending plots and summary tables.
+    - Produces a multi-page PDF report with tables and figures.
+
+Intended to be run as a standalone script after the categorization and data cleaning steps.
+"""
+
 import logging
 import sqlite3
 import pandas as pd
@@ -26,6 +44,12 @@ else:
     categories = {}
 
 def main():
+    """
+    Run the financial analysis pipeline and generate a PDF report.
+
+    Loads AI-generated categories, processes transaction data, performs categorization,
+    creates summary tables and plots, and exports a comprehensive PDF report.
+    """
 
     # --- Logging configuration ---
     logging.basicConfig(
@@ -76,6 +100,16 @@ def main():
     
     # --- Fast categorization using vectorized string matching ---
     def fast_categorize(df, categories):
+        """
+        Categorize transactions using vectorized keyword matching.
+
+        Args:
+            df (pandas.DataFrame): DataFrame containing transaction data.
+            categories (dict): Mapping of category names to lists of keywords.
+
+        Returns:
+            pandas.Series: Series of assigned categories for each transaction.
+        """
         text_col = (
             df['sender_receiver'].fillna('') + ' ' +
             df['booking_text'].fillna('') + ' ' +
@@ -160,6 +194,11 @@ def main():
 
     # -------- Plots --------
     def plot_cumulative_area():
+        """
+        Generate and save a stacked area plot of cumulative spending by category.
+
+        Saves the plot as 'cumulative_spending_plot.png' in the build directory.
+        """
         try:
             df_filtered = df[df['cost'] != 0].copy()
             df_filtered['year'] = df_filtered['date'].dt.year
@@ -187,6 +226,14 @@ def main():
     plot_cumulative_area()
 
     def plot_cumulative_area_by_keyword(category):
+        """
+        Generate and save a cumulative spending area plot by keyword for a given category.
+
+        Args:
+            category (str): The category for which to generate the plot.
+
+        Saves the plot as 'cumulative_spending_plot_{category}.png' in the build directory.
+        """
         try:
             plt.close('all')
             keywords = categories.get(category, [])
@@ -233,6 +280,12 @@ def main():
     # -------- PDF Report --------
 
     class PDF(FPDF):
+        """
+        Custom PDF class for generating the financial analysis report.
+
+        Extends FPDF to add methods for headers, footers, tables, and figures.
+        """
+
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
             self.table_counter = 1
@@ -443,6 +496,16 @@ def main():
     logging.info("Analysis completed successfully.")
 
 def normalize_text(text):
+    """
+    Normalize text by lowercasing and removing non-alphanumeric characters except spaces.
+
+    Args:
+        text (str): Input string.
+
+    Returns:
+        str: Normalized string.
+    """
+
     # Lowercase and remove all non-alphanumeric characters except spaces
     return re.sub(r'[^a-z0-9 ]', '', text.lower())
 

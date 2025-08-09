@@ -1,3 +1,32 @@
+"""
+main_categorization.py
+
+This script orchestrates the iterative AI-based categorization workflow for financial transactions.
+It automates the process of running external scripts for categorization, cleaning, and evaluation in multiple rounds,
+each time focusing on transactions that remain uncategorized. The workflow continues until all transactions are categorized,
+no further progress is made, or a maximum number of iterations is reached.
+
+Key features:
+    - Runs the AI categorization, cleaning, and evaluation scripts in sequence for each iteration.
+    - Tracks and manages uncategorized and inconsistently categorized transactions.
+    - Merges and consolidates results from all iterations into final output files.
+    - Ensures robust, automated processing for high-quality, comprehensive categorization.
+
+This script is intended to be the main entry point for the categorization pipeline and should be run after preparing
+the input transaction data and AI models.
+
+Dependencies:
+    - Python 3.x
+    - Required Python packages: subprocess, json, os, time, glob
+
+Usage:
+    1. Set up the environment: Ensure Python 3.x is installed and the required packages are available.
+    2. Prepare input data: Place the input transaction data file (transactions.json) in the 'inputs' directory.
+    3. Configure AI models: Ensure the AI models and scripts are available in the 'scripts' directory.
+    4. Run the script: Execute this script (main_categorization.py) to start the categorization process.
+    5. Review results: Check the 'outputs' directory for the categorized transaction files and reports.
+"""
+
 import subprocess
 import json
 import os
@@ -13,6 +42,16 @@ MAX_ITERATIONS = 5
 TARGET_COVERAGE = 1.0  # 100%
 
 def run_script(script_and_args):
+    """
+    Executes a Python script with the specified arguments as a subprocess.
+
+    Args:
+        script_and_args (list): A list containing the script name followed by its arguments.
+
+    Prints:
+        The command being run, the standard output of the subprocess, and any errors encountered.
+    
+    """
     print(f"Running: {' '.join(script_and_args)}")
     result = subprocess.run(["python"] + script_and_args, capture_output=True, text=True)
     print(result.stdout)
@@ -20,6 +59,16 @@ def run_script(script_and_args):
         print("⚠️ Error:", result.stderr)
 
 def load_uncategorized_count(uncategorized_path):
+    """
+    Loads and returns the count of uncategorized items from a JSON file.
+
+    Args:
+        uncategorized_path (str): The file path to the JSON file containing uncategorized items.
+
+    Returns:
+        int: The number of uncategorized items. Returns 0 if the file does not exist.
+    """
+
     if not os.path.exists(uncategorized_path):
         return 0
     with open(uncategorized_path, "r", encoding="utf-8") as f:
@@ -27,6 +76,17 @@ def load_uncategorized_count(uncategorized_path):
         return len(data)
 
 def merge_json_files(pattern, key=None):
+    """
+    Merge multiple JSON files matching a glob pattern into a single list, removing duplicates.
+
+    Args:
+        pattern (str): Glob pattern to match JSON files.
+        key (str, optional): Key for identifying unique entries; if None, the entire entry is used.
+
+    Returns:
+        list: Merged and deduplicated JSON objects from all matched files.
+    """
+
     merged = []
     seen = set()
     for fname in sorted(glob.glob(pattern)):
@@ -46,12 +106,37 @@ def merge_json_files(pattern, key=None):
     return merged
 
 def save_merged(pattern, outname, key=None):
+    """
+    Merge JSON files matching a pattern and save the result to an output file.
+
+    Args:
+        pattern (str): Glob pattern to match JSON files.
+        outname (str): Output filename for the merged JSON data.
+        key (str, optional): Key for deduplication.
+
+    Returns:
+        None
+
+    Side Effects:
+        Writes the merged JSON data to the specified output file and prints a confirmation message.
+    """
+
     merged = merge_json_files(pattern, key)
     with open(outname, "w", encoding="utf-8") as f:
         json.dump(merged, f, indent=2, ensure_ascii=False)
     print(f"Merged file saved as {outname}")
 
 def merge_category_json_files(pattern):
+    """
+    Merge multiple JSON files containing category-keyword mappings into a single list.
+
+    Args:
+        pattern (str): Glob pattern to match JSON files.
+
+    Returns:
+        list: List of dictionaries, each with "Category" and "Keywords" keys.
+    """
+
     merged = {}
     for fname in sorted(glob.glob(pattern)):
         with open(fname, "r", encoding="utf-8") as f:
@@ -79,12 +164,33 @@ def merge_category_json_files(pattern):
     ]
 
 def save_merged_categories(pattern, outname):
+    """
+    Merges multiple category JSON files matching a given pattern and saves the merged result to a specified output file.
+
+    Args:
+        pattern (str): The glob pattern to match input JSON files for merging.
+        outname (str): The filename for the merged output JSON file.
+
+    Returns:
+        None
+
+    Side Effects:
+        Writes the merged JSON data to the specified output file and prints a confirmation message.
+    """
+
     merged = merge_category_json_files(pattern)
     with open(outname, "w", encoding="utf-8") as f:
         json.dump(merged, f, indent=2, ensure_ascii=False)
     print(f"Merged file saved as {outname}")
 
 def main():
+    """
+    Run the iterative categorization workflow for financial transactions.
+
+    Executes categorization, cleaning, and evaluation scripts in multiple rounds,
+    manages uncategorized transactions, and merges results into consolidated output files.
+    """
+
     iteration = 1
     previous_count = None
     gen_cat_input = os.path.join(INPUTS_DIR, "transactions.json")  # Start with all transactions

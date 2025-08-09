@@ -1,3 +1,13 @@
+"""
+GenCat.py
+
+This script uses AI or rule-based logic to categorize financial transactions based on their textual descriptions.
+It reads input transactions, applies categorization logic, and outputs categorized results for further processing.
+
+Typical usage:
+    python GenCat.py input.json output.json
+"""
+
 import os
 import sys
 import json
@@ -6,6 +16,14 @@ from pydantic import BaseModel
 import time
 
 class KeywordEntry(BaseModel):
+    """
+    Represents a keyword entry with associated reasoning and confidence score.
+
+    Attributes:
+        keyword (str): The keyword for categorization.
+        reasoning (str): Explanation for why the keyword is relevant.
+        confidence (float): Confidence score for the keyword.
+    """
     keyword: str
     reasoning: str
     confidence: float
@@ -24,6 +42,15 @@ class GenAICat(BaseModel):
 MAX_ATTEMPTS = 3
 
 def is_valid_json(text):
+    """
+    Checks if the provided text is a valid JSON string.
+
+    Args:
+        text (str): The string to be checked for valid JSON format.
+
+    Returns:
+        bool: True if the text is valid JSON, False otherwise.
+    """
     try:
         json.loads(text)
         return True
@@ -102,7 +129,15 @@ def main():
     my_GenAICats: list[GenAICat] = response.parsed
 
     def count_tokens(text):
-        # Approximate: split by whitespace (not exact for LLMs, but gives a rough idea)
+        """
+        Approximate the number of tokens in a string by splitting on whitespace.
+
+        Args:
+            text (str): The input string.
+
+        Returns:
+            int: Approximate token count.
+        """
         return len(text.split())
 
     prompt_tokens = count_tokens(full_prompt)
