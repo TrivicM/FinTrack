@@ -42,49 +42,46 @@ It covers how the cleaned bank data is analyzed to extract insights and generate
 </section>
 <section id="module-05_analysis.analysis">
 <span id="analysis-py-module"></span><h2>analysis.py module<a class="headerlink" href="#module-05_analysis.analysis" title="Link to this heading">¶</a></h2>
+<p>analysis.py</p>
+<p>This script performs comprehensive financial analysis and reporting for bank transactions.
+It loads transaction data from an SQLite database, applies AI-generated categorization rules,
+aggregates and visualizes financial data, and generates a detailed PDF report.</p>
+<dl class="simple">
+<dt>Key features:</dt><dd><ul class="simple">
+<li><p>Loads AI-generated categories for transaction classification.</p></li>
+<li><p>Categorizes transactions using fast, vectorized keyword matching.</p></li>
+<li><p>Aggregates data by year, month, and category.</p></li>
+<li><p>Exports uncategorized transactions for review.</p></li>
+<li><p>Generates cumulative spending plots and summary tables.</p></li>
+<li><p>Produces a multi-page PDF report with tables and figures.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Intended to be run as a standalone script after the categorization and data cleaning steps.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="analysis.analysis.main">
 <span class="sig-prename descclassname"><span class="pre">05_analysis.analysis.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#analysis.analysis.main" title="Link to this definition">¶</a></dt>
-<dd><p>Main function for the financial analysis pipeline.</p>
-<p>This function performs the following steps:</p>
-<ol class="arabic simple">
-<li><p>Configures logging to record analysis progress and errors.</p></li>
-<li><p>Connects to a SQLite database containing bank transaction data and loads the data into a pandas DataFrame.</p></li>
-<li><p>Converts and processes date and amount columns, and computes additional columns for costs, income, and date parts (year, month, day).</p></li>
-<li><p>Categorizes transactions using a fast, vectorized string-matching approach based on predefined keyword categories.</p></li>
-<li><p>Exports uncategorized transactions (“Other” category) to a JSON file for manual review.</p></li>
-<li><dl class="simple">
-<dt>Computes and aggregates financial summaries:</dt><dd><ul class="simple">
-<li><p>Yearly and monthly summaries of income, expenditure, and net balance.</p></li>
-<li><p>Category-wise summaries.</p></li>
-<li><p>Unique sender/receiver and purpose pairs for uncategorized transactions.</p></li>
-<li><p>Yearly and monthly delta tables for expense changes.</p></li>
-</ul>
-</dd>
-</dl>
-</li>
-<li><p>Generates and saves cumulative area plots for overall and per-category spending.</p></li>
-<li><dl class="simple">
-<dt>Creates a comprehensive PDF report that includes:</dt><dd><ul class="simple">
-<li><p>Summary tables (yearly, monthly, category-wise, and details for 1999).</p></li>
-<li><p>Cumulative spending plots.</p></li>
-<li><p>Detailed tables for each category and keyword in 1999.</p></li>
-<li><p>List of unique uncategorized transactions.</p></li>
-</ul>
-</dd>
-</dl>
-</li>
-<li><p>Logs all major steps and outputs the location of the generated PDF report.</p></li>
-</ol>
-<p>Note:
-- Requires global variables or objects such as <cite>categories</cite>, <cite>normalize_text</cite>, <cite>BUILD_DIR</cite>, <cite>ANALYSIS_DIR</cite>, and necessary imports (e.g., pandas, matplotlib, FPDF, logging, os, datetime, re, sqlite3).
-- Intended to be run as the main entry point for the analysis script.</p>
+<dd><p>Run the financial analysis pipeline and generate a PDF report.</p>
+<p>Loads AI-generated categories, processes transaction data, performs categorization,
+creates summary tables and plots, and exports a comprehensive PDF report.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="analysis.analysis.normalize_text">
 <span class="sig-prename descclassname"><span class="pre">05_analysis.analysis.</span></span><span class="sig-name descname"><span class="pre">normalize_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#analysis.analysis.normalize_text" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Normalize text by lowercasing and removing non-alphanumeric characters except spaces.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – Input string.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Normalized string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 </section>

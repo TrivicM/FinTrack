@@ -36,7 +36,7 @@ The workflow consists of the following main steps:
    - Includes utilities for running scripts, counting uncategorized transactions, merging JSON files, and saving merged results.
 
 
-.. figure:: _static/AI_Loop.png
+.. figure:: _images/AI_Loop.png
    :alt: Description of image
    :width: 600px
 

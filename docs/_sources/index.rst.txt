@@ -12,7 +12,7 @@ It provides a comprehensive solution for managing financial data, from cleaning 
 This documentation will guide you through the process of using FinTrack, including data cleaning, analysis, AI categorization, and report generation. 
 
 
-.. figure:: _static/FinTrack.png
+.. figure:: _images/FinTrack.png
    :alt: FinTrack Logo
    :width: 800px
 
