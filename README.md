@@ -2,29 +2,59 @@
 
 Welcome to the FinTrack project!
 
-AI assisted financial analysis from CSV to Report using Python and SQLite and GenAI.
-This project is designed to help you track your financial data, analyze it, and generate reports using Python, SQLite, and AI technologies.
-It provides a comprehensive solution for managing financial data, from cleaning and categorizing CSV files to generating insightful reports.
+**FinTrack** is an AI-assisted financial analysis toolchain that processes bank statement CSV files, cleans and categorizes transactions, stores them in a SQLite database, and generates insightful reports and visualizations.  
+It leverages Python, SQLite, and GenAI to automate and enhance your personal or business financial tracking.
 
+---
 
-![FinTrack Workflow](FinTrack/06_documentation/source/_static/FinTrack.png)
+![FinTrack Workflow](docs/_images/FinTrack.png)
 
+---
 
 ## Overview
 
-This project loads bank statements in CSV format, cleans and organizes the data into a SQLite database using the `db_update.py` script.  
-The `analysis_plotting.py` script performs data analysis and generates visual reports including charts.
+FinTrack loads bank statements in CSV format, cleans and organizes the data into a SQLite database using the `db_update.py` script.  
+The AI-based categorization workflow in `07_AI_categorisation` classifies transactions using both AI and keyword-based scripts.  
+The `analysis.py` script in `05_analysis` performs data analysis and generates visual reports, including summary tables, cumulative spending plots, and a comprehensive PDF report.
+
+---
 
 ## File Structure
 
-- `db_update.py`: Script responsible for data cleaning and updating the database.
-- `analysis_plotting.py`: Script for analyzing data and creating visualizations.
+- `03_data_cleaning/db_update.py`: Data cleaning and database update script.
+- `05_analysis/analysis.py`: Data analysis and report generation script.
+- `07_AI_categorisation/main_categorization.py`: Main workflow for AI-based transaction categorization.
+- `docs/`: Rendered HTML documentation for the project (served via GitHub Pages).
+
+---
 
 ## How to Use
 
-1. Run `db_update.py` to import and clean the bank statement data.
-2. Run `analysis_plotting.py` to perform analysis and generate charts/reports.
+1. **Prepare your data:**  
+   Place your bank statement CSV files in the `FinTrack/02_raw_data/` directory.
 
+2. **Import and clean data:**  
+   Run the data cleaning script to import and normalize your CSV files into the SQLite database:
+   ```sh
+   python FinTrack/03_data_cleaning/db_update.py
+   ```
+
+3. **AI categorization:**  
+   Execute the AI categorization workflow to classify transactions and generate reports:
+   ```sh
+   python FinTrack/07_AI_categorisation/main_categorization.py
+   ```
+
+4. **Data analysis and reporting:**  
+   Run the analysis script to create visualizations and compile the final report:
+   ```sh
+   python FinTrack/05_analysis/analysis.py
+   ```
+
+5. **View your results:**  
+   - The generated PDF report will be available at: [FinTrack report (PDF)](FinTrack/05_analysis/_build/FinTrack_Report.pdf)
+   ```
+---
 
 ## Project documentation
 
@@ -32,7 +62,5 @@ The `analysis_plotting.py` script performs data analysis and generates visual re
 
 ## Example of the FinTrack report
 
-- [FinTrack report (pdf)](FinTrack/05_analysis/_build/FinTrack_Report.pdf)
-
----
+[FinTrack report (PDF)](FinTrack/05_analysis/_build/FinTrack_Report.pdf)
 
