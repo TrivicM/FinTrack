@@ -52,13 +52,13 @@ The `analysis.py` script in `05_analysis` performs data analysis and generates v
    ```
 
 5. **View your results:**  
-   - The generated PDF report will be available at: [FinTrack report (PDF)](FinTrack/05_analysis/_build/FinTrack_Report.pdf)
+   The generated PDF report will be available at: [FinTrack report (PDF)](FinTrack/05_analysis/_build/FinTrack_Report.pdf)
    ```
 ---
 
 ## Project documentation
 
-- [Project Documentation (HTML)](https://TrivicM.github.io/FinTrack/)
+[Project Documentation (HTML)](https://TrivicM.github.io/FinTrack/)
 
 ## Example of the FinTrack report
 
