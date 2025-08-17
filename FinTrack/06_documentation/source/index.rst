@@ -6,15 +6,18 @@
 FinTrack documentation
 ======================
 
-.. figure:: _static/FinTrack.png
+AI assisted financial analysis from CSV to Report using Python and SQLite and GenAI.
+This project is designed to help you track your financial data, analyze it, and generate reports using Python, SQLite, and AI technologies.
+It provides a comprehensive solution for managing financial data, from cleaning and categorizing CSV files to generating insightful reports.
+This documentation will guide you through the process of using FinTrack, including data cleaning, analysis, AI categorization, and report generation. 
+
+
+.. figure:: _images/FinTrack.png
    :alt: FinTrack Logo
    :width: 800px
 
    Welcome to the FinTrack project!
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
 
 .. toctree::
    :maxdepth: 2
